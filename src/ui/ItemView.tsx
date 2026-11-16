@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import type { ChoiceItem, Item, MatchItem, NumberItem, ShortItem, SortItem, WordItem } from '../content/types';
+import type { ChoiceItem, Item, LabelItem, MatchItem, NumberItem, ShortItem, SortItem, WordItem } from '../content/types';
+import { Picture, partsOf } from '../pictures';
 import { checkMatch, checkNumber, checkSort, checkWord, detectIdeas, shortCorrect } from '../engine/check';
 import { seeded, shuffle } from '../engine/rng';
 import { numberQuestion } from '../engine/session';
@@ -29,6 +30,7 @@ export function ItemView({ item, seed, onDone }: Props) {
     case 'number': return <NumberQ item={item} seed={seed} onDone={onDone} />;
     case 'word': return <WordQ item={item} onDone={onDone} />;
     case 'short': return <Short item={item} onDone={onDone} />;
+    case 'label': return <Label item={item} seed={seed} onDone={onDone} />;
   }
 }
 
@@ -221,6 +223,47 @@ function Short({ item, onDone }: { item: ShortItem; onDone: (o: Outcome) => void
         const missed = item.mustInclude.filter((_, i) => !ticks[i]).map((k) => k.idea);
         onDone({ correct: ok, note: ok ? 'All the key ideas. Great explaining!' : `Next time add: ${missed.join('; ')}` });
       }} label="Done" />
+    </div>
+  );
+}
+
+function Label({ item, seed, onDone }: { item: LabelItem; seed: number; onDone: (o: Outcome) => void }) {
+  const parts = partsOf(item.picture);
+  const names = item.spots.map((k) => parts[k].name);
+  const chips = useMemo(() => shuffle(names, seeded(seed)), [item, seed]); // eslint-disable-line react-hooks/exhaustive-deps
+  const [given, setGiven] = useState<(string | null)[]>(() => names.map(() => null));
+  const [active, setActive] = useState<number | null>(0);
+
+  const choose = (name: string) => {
+    if (active === null) return;
+    const next = given.map((g) => (g === name ? null : g));
+    next[active] = name;
+    setGiven(next);
+    const free = next.findIndex((g) => !g);
+    setActive(free < 0 ? null : free);
+  };
+  const done = given.every(Boolean);
+  return (
+    <div className="stack">
+      <p className="qtext">{item.prompt}</p>
+      <Picture name={item.picture} spots={item.spots} active={active} onSpot={setActive} />
+      <p className="muted small">Tap a number, then tap its name.</p>
+      <div className="stack tight">
+        {names.map((_, i) => (
+          <button key={i} className={`choice label-row${active === i ? ' selected' : ''}${given[i] ? ' paired' : ''}`} onClick={() => setActive(i)}>
+            <span className="pair-num">{i + 1}</span>{given[i] ?? <span className="muted">?</span>}
+          </button>
+        ))}
+      </div>
+      <div className="chips">
+        {chips.map((c) => (
+          <button key={c} className={`chip-btn${given.includes(c) ? ' used' : ''}`} onClick={() => choose(c)}>{c}</button>
+        ))}
+      </div>
+      <CheckButton disabled={!done} onClick={() => {
+        const wrong = names.filter((n, i) => given[i] !== n).length;
+        onDone({ correct: wrong === 0, reveal: names.map((n, i) => `${i + 1} → ${n}`).join('\n'), note: wrong ? `${wrong} not yet in the right place.` : undefined });
+      }} />
     </div>
   );
 }

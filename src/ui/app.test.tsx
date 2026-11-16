@@ -20,6 +20,9 @@ async function answerOne(user: ReturnType<typeof userEvent.setup>): Promise<stri
   } else if (text) {
     await user.type(text, '1');
     await user.click(q.getByRole('button', { name: 'Check' }));
+  } else if (fs.querySelector('.chips')) {
+    for (const b of [...fs.querySelectorAll('.chip-btn')]) await user.click(b as HTMLElement);
+    await user.click(q.getByRole('button', { name: 'Check' }));
   } else if (fs.querySelector('.match-grid')) {
     for (const b of [...fs.querySelectorAll('.pair-right')]) await user.click(b as HTMLElement);
     await user.click(q.getByRole('button', { name: 'Check' }));
@@ -90,5 +93,52 @@ describe('Daily Mix, end to end', () => {
       }
       await answerOne(user);
     }
+  }, 30000);
+});
+
+describe('Phase 2 screens', () => {
+  it('Topics → Learn cards → check questions, saved to progress', async () => {
+    const store = memoryStore();
+    const user = userEvent.setup();
+    render(<App store={store} now={() => DAY1} />);
+    await user.click(await screen.findByRole('button', { name: /Topics/ }));
+    await user.click(screen.getByRole('button', { name: /Cells and stem cells/ }));
+    await user.click(screen.getByRole('button', { name: 'Learn' }));
+    for (let k = 0; k < 10 && !screen.queryByRole('button', { name: 'Check yourself' }); k++) {
+      expect(document.querySelector('.pic svg')).not.toBeNull();
+      await user.click(screen.getByRole('button', { name: 'Next' }));
+    }
+    await user.click(screen.getByRole('button', { name: 'Check yourself' }));
+    for (let n = 0; n < 10 && !screen.queryByText('Check done!'); n++) await answerOne(user);
+    expect(screen.getByText('Check done!')).toBeInTheDocument();
+    expect(Object.keys(store.current!.progress).every((id) => id.startsWith('C1-'))).toBe(true);
+    await user.click(screen.getByRole('button', { name: 'Back to Cells and stem cells' }));
+    expect(screen.getByRole('button', { name: 'Practise this topic' })).toBeInTheDocument();
+  }, 30000);
+
+  it('spelling: a misspelt word from a mix comes first and leaves the list when spelled right', async () => {
+    const store = memoryStore({ version: 1, progress: {}, days: [], sessions: [], spelling: ['mitochondria'] });
+    const user = userEvent.setup();
+    render(<App store={store} now={() => DAY1} />);
+    await user.click(await screen.findByRole('button', { name: /Words/ }));
+    expect(screen.getByText(/to practise: mitochondria/)).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Start spelling' }));
+    expect(screen.getByText('Where respiration happens and energy is released')).toBeInTheDocument();
+    await user.type(screen.getByRole('textbox', { name: 'Your spelling' }), 'mitocondria');
+    await user.click(screen.getByRole('button', { name: 'Check' }));
+    expect(screen.getByText('Almost!')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Continue' }));
+    expect(store.current!.spelling).toEqual(['mitochondria']);
+    // Answer the rest; mitochondria comes back once at the end.
+    for (let n = 0; n < 20 && !screen.queryByText('Spelling done!'); n++) {
+      const meaning = document.querySelector('.qtext')!.textContent!;
+      const isMito = meaning.startsWith('Where respiration');
+      await user.type(screen.getByRole('textbox', { name: 'Your spelling' }), isMito ? 'mitochondria' : 'zz');
+      await user.click(screen.getByRole('button', { name: 'Check' }));
+      await user.click(screen.getByRole('button', { name: 'Continue' }));
+    }
+    expect(screen.getByText('Spelling done!')).toBeInTheDocument();
+    expect(store.current!.spelling).not.toContain('mitochondria');
+    expect(store.current!.progress['word:mitochondria'].box).toBe(1);
   }, 30000);
 });

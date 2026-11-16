@@ -5,7 +5,10 @@ export type TopicId = string;
 export interface LearnCard {
   title: string;
   text: string;
+  /** Name of a picture in src/pictures. */
   picture?: string;
+  /** Diagram parts to number and name under the picture. */
+  labels?: string[];
   example?: string;
 }
 
@@ -83,7 +86,15 @@ export interface ShortItem extends Base {
   explainWhy?: boolean;
 }
 
-export type Item = ChoiceItem | MatchItem | SortItem | NumberItem | WordItem | ShortItem;
+export interface LabelItem extends Base {
+  type: 'label';
+  /** Name of a diagram in src/pictures. */
+  picture: string;
+  /** Parts of that diagram to label (their names come from the diagram). */
+  spots: string[];
+}
+
+export type Item = ChoiceItem | MatchItem | SortItem | NumberItem | WordItem | ShortItem | LabelItem;
 export type ItemType = Item['type'];
 
 export interface Topic {

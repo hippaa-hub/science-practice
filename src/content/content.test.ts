@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { checkNumber, checkWord, detectIdeas, norm } from '../engine/check';
 import { numberQuestion } from '../engine/session';
 import { ALL_ITEMS, TOPICS, currentTopic } from './index';
+import { hasPicture, partsOf } from '../pictures';
 
 describe('content', () => {
   it('ids are unique and topics match', () => {
@@ -38,6 +39,30 @@ describe('content', () => {
         }
       }
     }
+  });
+
+  it('pictures and diagram parts exist', () => {
+    for (const t of TOPICS) {
+      for (const c of t.learn) {
+        if (c.picture) expect(hasPicture(c.picture), `${t.id} ${c.title}`).toBe(true);
+        for (const l of c.labels ?? []) expect(partsOf(c.picture!)[l], `${t.id} ${c.title} ${l}`).toBeDefined();
+        expect(c.picture, `${t.id} ${c.title} needs a picture`).toBeDefined();
+      }
+    }
+    for (const i of ALL_ITEMS) if (i.type === 'label') {
+      expect(hasPicture(i.picture), i.id).toBe(true);
+      for (const k of i.spots) expect(partsOf(i.picture)[k], `${i.id} ${k}`).toBeDefined();
+      expect(new Set(i.spots).size, i.id).toBe(i.spots.length);
+    }
+  });
+
+  it('word bank: each sentence uses its word, and the meaning does not give it away', () => {
+    for (const t of TOPICS) for (const w of t.words) {
+      expect(w.sentence.toLowerCase(), `${t.id} ${w.word}`).toContain(w.word.toLowerCase());
+      expect(w.meaning.toLowerCase().includes(w.word.toLowerCase()), `${t.id} ${w.word} meaning`).toBe(false);
+    }
+    const all = TOPICS.flatMap((t) => t.words.map((w) => w.word.toLowerCase()));
+    expect(new Set(all).size).toBe(all.length);
   });
 
   it('never gives the answer away in the question', () => {

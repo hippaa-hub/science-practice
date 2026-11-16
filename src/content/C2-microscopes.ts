@@ -9,10 +9,12 @@ export const topic: Topic = {
   unit: 'Cells',
   title: 'Microscopes',
   learn: [
-    { title: 'From water drops to microscopes', text: 'People first made things look bigger with curved glass and water drops. In 1590 Zacharias and Hans Janssen made the first compound microscope. It magnified about 10×.' },
-    { title: 'Hooke names the cell', text: 'In 1665 Robert Hooke looked at cork at about 50×. He saw little boxes and called them "cells", after cellae, the small rooms monks lived in.' },
-    { title: 'Leeuwenhoek sees life', text: 'Around 1670 Antonie van Leeuwenhoek made lenses up to about 200×. He was the first to see living bacteria, yeast and blood cells. He called them "animalcules".' },
-    { title: 'Total magnification', text: 'Multiply the eyepiece by the objective lens.', example: '10× eyepiece and 40× objective: 10 × 40 = 400×.' },
+    { title: 'From water drops to microscopes', picture: 'timeline', text: 'People first made things look bigger with curved glass and water drops. In 1590 Zacharias and Hans Janssen made the first compound microscope. It magnified about 10×.' },
+    { title: 'Hooke names the cell', picture: 'cork', text: 'In 1665 Robert Hooke looked at cork at about 50×. He saw little boxes and called them "cells", after cellae, the small rooms monks lived in.' },
+    { title: 'Leeuwenhoek sees life', picture: 'animalcules', text: 'Around 1670 Antonie van Leeuwenhoek made lenses up to about 200×. He was the first to see living bacteria, yeast and blood cells. He called them "animalcules" (tiny animals).' },
+    { title: 'Parts of the microscope', picture: 'microscope', labels: ['eyepiece', 'nosepiece', 'objectives', 'stage', 'clips', 'diaphragm', 'light', 'coarse', 'fine'], text: 'You look through the eyepiece (usually 10×). The revolving nosepiece holds the 4×, 10× and 40× objective lenses. Focus with the coarse knob first, then the fine knob.' },
+    { title: 'Total magnification', picture: 'magnify', text: 'Multiply the eyepiece by the objective lens.', example: '10× eyepiece and 40× objective: 10 × 40 = 400×.' },
+    { title: 'Plant and animal cells under the microscope', picture: 'plant-vs-animal', text: 'Plant cells are box-shaped, with a thick cell wall and green chloroplasts. Animal cells are rounded or irregular, with only a membrane. They are stained blue or pink to show the nucleus.' },
   ],
   items: [
     {
@@ -230,15 +232,27 @@ export const topic: Topic = {
       model: 'Multiply the magnification of the eyepiece by the magnification of the objective lens. For example, 10× eyepiece and 40× objective: 10 × 40 = 400×.',
       explain: 'Name both lenses and show one worked example.',
     },
+    {
+      id: 'C2-label-top', topic: 'C2', type: 'label',
+      prompt: 'Label the microscope.',
+      picture: 'microscope', spots: ['eyepiece', 'nosepiece', 'objectives', 'stage', 'clips'],
+      explain: 'From the top: eyepiece, revolving nosepiece, objective lenses, then the stage with its clips.',
+    },
+    {
+      id: 'C2-label-bottom', topic: 'C2', type: 'label',
+      prompt: 'Label the lower parts of the microscope.',
+      picture: 'microscope', spots: ['diaphragm', 'light', 'coarse', 'fine'],
+      explain: 'The diaphragm sits under the stage, above the light source. The big knob is coarse focus; the small one is fine focus.',
+    },
   ],
   words: [
     { word: 'microscope', meaning: 'An instrument that makes very small things look bigger', sentence: 'We used a microscope to look at human tissue.' },
     { word: 'magnification', meaning: 'How many times bigger something looks', sentence: 'The total magnification was 400×.' },
     { word: 'eyepiece', meaning: 'The lens you look through, usually 10×', sentence: 'Look through the eyepiece and turn the fine focus.' },
-    { word: 'objective lens', meaning: 'A lens near the slide: 4×, 10× or 40×', sentence: 'I switched to the 40× objective lens.' },
+    { word: 'objective lens', meaning: 'The 4×, 10× or 40× glass near the slide', sentence: 'I switched to the 40× objective lens.' },
     { word: 'diaphragm', meaning: 'The part that changes how much light reaches the slide', sentence: 'I opened the diaphragm to let in more light.' },
     { word: 'animalcules', meaning: 'Leeuwenhoek\'s name for the tiny living things he saw', sentence: 'Leeuwenhoek called bacteria animalcules.' },
-    { word: 'compound microscope', meaning: 'A microscope with two lenses: eyepiece and objective', sentence: 'Janssen made the first compound microscope in 1590.' },
+    { word: 'compound microscope', meaning: 'An instrument with two lenses: an eyepiece and an objective', sentence: 'Janssen made the first compound microscope in 1590.' },
     { word: 'chloroplast', meaning: 'The green part of a plant cell', sentence: 'The plant cells had green chloroplasts.' },
   ],
 };

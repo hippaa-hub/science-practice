@@ -6,10 +6,12 @@ export const topic: Topic = {
   unit: 'Cells',
   title: 'Organelles: a cell is a system',
   learn: [
-    { title: 'A cell is a system', text: 'A system is a group of parts that depend on each other and work together for one purpose. The organelles in a cell work together so the organism can survive.' },
-    { title: 'Control and making', text: 'The nucleus holds DNA and controls the cell. The nucleolus, inside it, makes ribosomes. Ribosomes make proteins.' },
-    { title: 'Energy: respiration', text: 'Mitochondria are where respiration happens and energy is released. Their folded inner membrane (cristae) gives a large surface area.', example: 'glucose + oxygen → carbon dioxide + water + energy' },
-    { title: 'Plant-only parts', text: 'Cell wall (cellulose, rigid shape). Chloroplasts (chlorophyll, photosynthesis). Large permanent vacuole (cell sap, keeps the cell firm).' },
+    { title: 'A cell is a system', picture: 'animal-cell', text: 'A system is a group of parts that depend on each other and work together for one purpose. The organelles in a cell work together so the organism can survive.' },
+    { title: 'Inside an animal cell', picture: 'animal-cell', labels: ['membrane', 'cytoplasm', 'nucleus', 'nucleolus', 'mitochondria', 'ribosomes'], text: 'The membrane controls what goes in and out. The nucleus holds DNA and controls the cell. The nucleolus makes ribosomes, and ribosomes make proteins. Reactions happen in the cytoplasm.' },
+    { title: 'Energy: respiration', picture: 'respiration', text: 'Cells need glucose and oxygen. Respiration happens in the mitochondria and releases energy. Carbon dioxide is waste.', example: 'glucose + oxygen → carbon dioxide + water + energy' },
+    { title: 'Mitochondria: form meets function', picture: 'mitochondrion', text: 'The inner membrane of a mitochondrion is folded (cristae). This gives a large surface area for respiration. Liver cells have up to 100,000 mitochondria each.' },
+    { title: 'Plant-only parts', picture: 'plant-cell', labels: ['wall', 'membrane', 'vacuole', 'chloroplasts', 'nucleus', 'mitochondria'], text: 'Cell wall: cellulose, gives a rigid shape. Chloroplasts: chlorophyll, photosynthesis. Large permanent vacuole: cell sap, keeps the cell firm. Plant cells have a membrane and mitochondria too.' },
+    { title: 'Beta-cells and insulin', picture: 'beta-cell', text: 'Pancreatic beta-cells make insulin from amino acids. In Type 1 diabetes the beta-cells are destroyed, so people need daily insulin injections.' },
   ],
   items: [
     {
@@ -229,6 +231,18 @@ export const topic: Topic = {
       ],
       model: 'Mitochondria are where respiration happens and energy is released. Their inner membrane is folded into cristae to give a large surface area.',
       explain: 'Describe the job first, then the form that helps the job: form meets function.',
+    },
+    {
+      id: 'C3-label-animal', topic: 'C3', type: 'label',
+      prompt: 'Label the animal cell.',
+      picture: 'animal-cell', spots: ['membrane', 'cytoplasm', 'nucleus', 'mitochondria', 'ribosomes'],
+      explain: 'Membrane on the outside, cytoplasm filling it, nucleus in the middle, mitochondria (folded inside), ribosomes as tiny dots.',
+    },
+    {
+      id: 'C3-label-plant', topic: 'C3', type: 'label',
+      prompt: 'Label the plant cell.',
+      picture: 'plant-cell', spots: ['wall', 'membrane', 'vacuole', 'chloroplasts', 'nucleus'],
+      explain: 'The thick outer layer is the cell wall; the membrane is just inside it. The big space is the vacuole. Green ovals are chloroplasts.',
     },
   ],
   words: [

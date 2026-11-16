@@ -1,0 +1,9 @@
+node_modules
+dist
+dev-dist
+.DS_Store
+
+# Private notes and class files stay on this Mac
+PLAN.md
+SCIENCE_STUDIED.md
+source-material/

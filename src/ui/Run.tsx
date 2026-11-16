@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Item } from '../content/types';
 import { answer, current, type SessionState } from '../engine/session';
 import { CellIcon } from './CellIcon';
-import { ItemView, type Outcome } from './ItemView';
+import { ItemView, dontKnowOutcome, type Outcome } from './ItemView';
 import { Photo } from './Photo';
 
 /** Plays a list of questions (Daily Mix, topic practice, or the check after Learn cards). */
@@ -36,16 +36,19 @@ export function Run({ items, session, onAnswer, onQuit }: {
       <fieldset className="plain" disabled={!!outcome} key={`${entry.id}-${session.index}`} data-item={entry.id}>
         <ItemView item={item} seed={entry.seed} onDone={setOutcome} />
       </fieldset>
+      {!outcome && (
+        <button className="btn ghost block dont-know" onClick={() => setOutcome(dontKnowOutcome(item, entry.seed))}>I don't know: show me</button>
+      )}
       {outcome && (
-        <div ref={panel} className={`feedback ${outcome.correct ? 'ok' : 'notyet'}`} role="status">
-          <h2>{outcome.correct ? 'Yes! Correct.' : 'Not yet'}</h2>
+        <div ref={panel} className={`feedback ${outcome.correct ? 'ok' : outcome.dontKnow ? 'learn' : 'notyet'}`} role="status">
+          <h2>{outcome.correct ? 'Yes! Correct.' : outcome.dontKnow ? "Let's learn it" : 'Not yet'}</h2>
           {outcome.note && <p className="bold">{outcome.note}</p>}
-          {!outcome.correct && outcome.reveal && <p className="pre"><b>Answer:</b> {outcome.reveal}</p>}
+          {!outcome.correct && outcome.reveal && <p className="pre"><b>{outcome.dontKnow && item.type === 'short' ? 'A good answer:' : 'Answer:'}</b> {outcome.reveal}</p>}
           {outcome.steps && !outcome.correct && <ol className="steps-list">{outcome.steps.map((s) => <li key={s}>{s}</li>)}</ol>}
           <p>{item.explain}</p>
           {item.photo && <Photo name={item.photo} />}
-          {!outcome.correct && !entry.repeat && <p className="small muted">This one will come back at the end and again tomorrow.</p>}
-          <button className={`btn block big ${outcome.correct ? '' : 'orange'}`} onClick={next} autoFocus>Continue</button>
+          {!outcome.correct && !entry.repeat && <p className="small muted">{outcome.dontKnow ? 'Good choice to ask. This one comes back at the end, so you can try it yourself.' : 'This one will come back at the end and again tomorrow.'}</p>}
+          <button className={`btn block big ${outcome.correct ? '' : outcome.dontKnow ? 'blue' : 'orange'}`} onClick={next} autoFocus>Continue</button>
         </div>
       )}
     </div>

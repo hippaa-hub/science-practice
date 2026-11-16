@@ -4,6 +4,7 @@ import type { ProgressMap } from '../engine/boxes';
 import { checkWord, editDistance, norm } from '../engine/check';
 import { blankSentence, usesWord, wordKey, type BankWord } from '../engine/practice';
 import { shuffle } from '../engine/rng';
+import { Mic } from './Mic';
 
 export const ALL_WORDS: BankWord[] = TOPICS.flatMap((t) => t.words.map((w) => ({ ...w, topic: t.id })));
 
@@ -97,9 +98,10 @@ export function SpellCard({ word, onDone }: { word: BankWord; onDone: (r: SpellR
       <input className="answer-input text" value={raw} disabled={!!result} onChange={(e) => setRaw(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && check()}
         placeholder="Type the word" aria-label="Your spelling" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck={false} />
       {!result && <button className="btn block big" disabled={!raw.trim()} onClick={check}>Check</button>}
+      {!result && <button className="btn ghost block dont-know" onClick={() => { setRaw(''); setResult('wrong'); }}>I don't know: show me</button>}
       {result && (
         <div className={`feedback ${result === 'exact' ? 'ok' : 'notyet'}`} role="status">
-          <h2>{result === 'exact' ? 'Perfect spelling!' : result === 'almost' ? 'Almost!' : 'Not yet'}</h2>
+          <h2>{result === 'exact' ? 'Perfect spelling!' : result === 'almost' ? 'Almost!' : raw ? 'Not yet' : "Let's learn it"}</h2>
           {result !== 'exact' && (
             <>
               <p>The spelling is:</p>
@@ -119,7 +121,7 @@ function Spelling({ given, target }: { given: string; target: string }) {
   return (
     <p className="spelling" aria-label={target}>
       {[...target].map((ch, i) => (
-        <span key={i} className={g[i]?.toLowerCase() === ch.toLowerCase() ? '' : 'diff'}>{ch}</span>
+        <span key={i} className={!g || g[i]?.toLowerCase() === ch.toLowerCase() ? '' : 'diff'}>{ch}</span>
       ))}
     </p>
   );
@@ -142,6 +144,7 @@ export function UseIt({ onClose }: { onClose: () => void }) {
       <p className="qtext">Write a sentence using <b className="hl">{w.word}</b>.</p>
       <p className="muted small">It means: {w.meaning}</p>
       <textarea className="answer-text" rows={3} value={raw} onChange={(e) => { setRaw(e.target.value); setChecked(null); }} aria-label="Your sentence" placeholder="Your sentence" />
+      {!ok && <Mic base={raw} onText={(t) => { setRaw(t); setChecked(null); }} />}
       {!ok && <button className="btn block big" disabled={!raw.trim()} onClick={() => setChecked(usesWord(raw, w.word))}>Check</button>}
       {checked && !ok && (
         <p className="hint" role="status">{!checked.used ? `Include the word "${w.word}" in your sentence.` : 'Make it a full sentence: at least 4 words.'}</p>

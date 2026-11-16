@@ -269,7 +269,7 @@ fieldset.plain { border: 0; padding: 0; margin: 0; min-width: 0; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip-btn { min-height: 44px; padding: 6px 14px; border-radius: 999px; border: 2px solid var(--blue); background: var(--blue-soft); color: var(--blue-dark); font-weight: 800; cursor: pointer; }
 .chip-btn.used { border-color: var(--line); background: #fff; color: var(--ink-soft); }
-.block { display: block; }
+span.block { display: block; }
 .as-button { width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; }
 .topic-map { list-style: none; margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 12px; border-left: 4px dashed var(--line); }
 .topic-map li { position: relative; }
@@ -292,3 +292,9 @@ fieldset.plain { border: 0; padding: 0; margin: 0; min-width: 0; }
 .photo { margin: 0; border-radius: var(--radius); overflow: hidden; border: 2px solid var(--line); background: #fff; }
 .photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
 .feedback .photo { border-color: rgba(0,0,0,0.08); }
+.feedback.learn { background: var(--blue-soft); border-color: var(--blue); }
+.dont-know { text-transform: none; font-size: 1rem; }
+.btn.mic { background: #fff; color: var(--purple-dark); border: 2px solid var(--purple); box-shadow: 0 4px 0 var(--purple-soft); text-transform: none; font-weight: 800; }
+.btn.mic.on { background: var(--purple); color: #fff; box-shadow: 0 4px 0 var(--purple-dark); animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 50% { filter: brightness(1.12); } }
+.mic-tip { margin-top: -4px; }

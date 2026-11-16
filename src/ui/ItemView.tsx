@@ -4,6 +4,7 @@ import { Picture, partsOf } from '../pictures';
 import { checkMatch, checkNumber, checkSort, checkWord, detectIdeas, shortCorrect } from '../engine/check';
 import { seeded, shuffle } from '../engine/rng';
 import { numberQuestion } from '../engine/session';
+import { Mic } from './Mic';
 
 /** What happened, for the feedback panel and the review boxes. */
 export interface Outcome {
@@ -14,6 +15,29 @@ export interface Outcome {
   steps?: string[];
   /** A science word she spelled with a slip, for the spelling queue. */
   misspelt?: string;
+  /** She pressed "I don't know": show the answer kindly; it counts as not yet and comes back later. */
+  dontKnow?: boolean;
+}
+
+/** The answer and working for "I don't know", per question type. */
+export function dontKnowOutcome(item: Item, seed: number): Outcome {
+  const base = { correct: false, dontKnow: true } as const;
+  switch (item.type) {
+    case 'choice': return { ...base, reveal: item.answer };
+    case 'match': return { ...base, reveal: item.pairs.map(([l, r]) => `${l} → ${r}`).join('\n') };
+    case 'sort': return { ...base, reveal: item.bins.map((b) => `${b}: ${item.cards.filter((c) => c.bin === b).map((c) => c.text).join(', ')}`).join('\n') };
+    case 'number': {
+      const q = numberQuestion(item, seed);
+      const unit = item.unit ? (item.unit === '×' ? '×' : ` ${item.unit}`) : '';
+      return { ...base, reveal: `${q.answer.toLocaleString('en-GB')}${unit}`, steps: q.steps };
+    }
+    case 'word': return { ...base, reveal: item.answer };
+    case 'short': return { ...base, reveal: item.model, note: `Key ideas: ${item.mustInclude.map((k) => k.idea).join('; ')}` };
+    case 'label': {
+      const parts = partsOf(item.picture);
+      return { ...base, reveal: item.spots.map((k, i) => `${i + 1} → ${parts[k].name}`).join('\n') };
+    }
+  }
 }
 
 interface Props {
@@ -154,6 +178,7 @@ function NumberQ({ item, seed, onDone }: { item: NumberItem; seed: number; onDon
           aria-label="Your answer" autoComplete="off" autoCorrect="off" spellCheck={false} />
       </div>
       {item.unit && <p className="muted small">Write the unit too{item.unit === '×' ? ', e.g. 40× (an x is fine)' : ''}.</p>}
+      <Mic base={raw} mode="replace" onText={(t) => { setRaw(t); setHint(null); }} />
       {hint && <p className="hint" role="status">{hint}</p>}
       <CheckButton disabled={!raw.trim()} onClick={check} />
     </div>
@@ -177,6 +202,7 @@ function WordQ({ item, onDone }: { item: WordItem; onDone: (o: Outcome) => void 
       <p className="qtext">{item.prompt}</p>
       <input className="answer-input text" value={raw} onChange={(e) => setRaw(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && check()}
         placeholder="Type the word" aria-label="Your answer" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck={false} />
+      <Mic base={raw} mode="replace" onText={setRaw} />
       <CheckButton disabled={!raw.trim()} onClick={check} />
     </div>
   );
@@ -192,8 +218,9 @@ function Short({ item, onDone }: { item: ShortItem; onDone: (o: Outcome) => void
       <div className="stack">
         <p className="qtext">{item.prompt}</p>
         <textarea className="answer-text" value={raw} onChange={(e) => setRaw(e.target.value)} rows={5}
-          placeholder="Write your answer in sentences." aria-label="Your answer" />
-        <p className="muted small">Write it first, then compare with a model answer.</p>
+          placeholder="Write or say your answer in sentences." aria-label="Your answer" />
+        <Mic base={raw} onText={setRaw} />
+        <p className="muted small">Answer first (writing or talking), then compare with a model answer.</p>
         <CheckButton disabled={words < 3} onClick={() => setTicks(detectIdeas(item.mustInclude, raw))} label="Compare" />
       </div>
     );

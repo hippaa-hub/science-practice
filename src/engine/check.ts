@@ -27,8 +27,30 @@ export function checkSort(cards: { text: string; bin: string }[], given: Record<
 export type NumberResult = 'correct' | 'needUnit' | 'wrongUnit' | 'wrong' | 'empty';
 
 /** Splits "400 ×" / "400x" / "1,200 J" into number and unit text. */
+const SMALL: Record<string, number> = {
+  zero: 0, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10,
+  eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19,
+  twenty: 20, thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70, eighty: 80, ninety: 90,
+};
+
+/** Spoken answers: "four hundred times" -> "400 times", "seventy five years" -> "75 years". */
+export function spokenToDigits(raw: string): string {
+  const words = raw.trim().toLowerCase().replace(/-/g, ' ').split(/\s+/);
+  let total = 0, chunk = 0, used = 0;
+  for (const w of words) {
+    if (w in SMALL) chunk += SMALL[w];
+    else if (w === 'hundred') chunk = (chunk || 1) * 100;
+    else if (w === 'thousand') { total += (chunk || 1) * 1000; chunk = 0; }
+    else if (w === 'and' && used > 0) { used++; continue; }
+    else break;
+    used++;
+  }
+  if (!used) return raw;
+  return [String(total + chunk), ...words.slice(used)].join(' ');
+}
+
 export function parseNumberAnswer(raw: string): { value: number | null; unit: string } {
-  const s = raw.trim().replace(/(\d),(?=\d{3}\b)/g, '$1').replace(/\s+/g, ' ');
+  const s = spokenToDigits(raw).trim().replace(/(\d),(?=\d{3}\b)/g, '$1').replace(/\s+/g, ' ');
   const m = s.match(/^([-−]?\d+(?:[.,]\d+)?)\s*(.*)$/);
   if (!m) return { value: null, unit: s };
   const value = Number(m[1].replace('−', '-').replace(',', '.'));

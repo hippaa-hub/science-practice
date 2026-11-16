@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { ALL_ITEMS, TOPICS } from '../content';
 import { DAY } from './boxes';
 import {
-  allCans, canCount, canReached, earnedBadges, levelFor, logMastery, lolaComment, totalXp, weekGain, weekStart,
+  allCans, canCount, canReached, earnedBadges, levelFor, logMastery, finishComment, totalXp, weekGain, weekStart,
   type AnswerRecord,
 } from './motivation';
 
@@ -61,11 +61,11 @@ describe('XP, levels and badges', () => {
     expect(got.has('can-5')).toBe(false);
   });
 
-  it('Lola says something specific', () => {
-    expect(lolaComment({ answered: 10, rightFirst: 6, fixed: [], asked: [], newCans: ['I can write the respiration equation'] }, () => ''))
+  it('the end-of-mix comment is specific', () => {
+    expect(finishComment({ answered: 10, rightFirst: 6, fixed: [], asked: [], newCans: ['I can write the respiration equation'] }, () => ''))
       .toContain('respiration equation');
-    expect(lolaComment({ answered: 10, rightFirst: 6, fixed: ['q'], asked: [], newCans: [] }, () => 'Which cells make insulin?'))
+    expect(finishComment({ answered: 10, rightFirst: 6, fixed: ['q'], asked: [], newCans: [] }, () => 'Which cells make insulin?'))
       .toContain('Which cells make insulin?');
-    expect(lolaComment({ answered: 10, rightFirst: 6, fixed: [], asked: ['a', 'b'], newCans: [] }, () => '')).toContain('2 questions');
+    expect(finishComment({ answered: 10, rightFirst: 6, fixed: [], asked: ['a', 'b'], newCans: [] }, () => '')).toContain('2 questions');
   });
 });

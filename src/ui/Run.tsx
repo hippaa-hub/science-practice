@@ -92,7 +92,7 @@ export function Finish({ title, firstTry, days, info, onHome, homeLabel = 'Back 
         <h1>{title}</h1>
         <p className="xp-gain pop">+{info.xpGain} XP</p>
       </div>
-      <div className="card bold lola-says">{info.comment}</div>
+      <div className="card bold coach-says">{info.comment}</div>
       {info.newCans.map((c) => (
         <div key={c} className="card new-can pop"><span aria-hidden="true">⭐</span> <b>New: {c}</b></div>
       ))}

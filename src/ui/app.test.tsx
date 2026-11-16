@@ -144,7 +144,7 @@ describe('Phase 2 screens', () => {
 });
 
 describe('motivation on screen', () => {
-  it('a finished mix shows XP, Lola, the first-mix badge, and Home shows level and things I can do', async () => {
+  it('a finished mix shows XP, the avatar, the first-mix badge, and Home shows level and things I can do', async () => {
     const store = memoryStore();
     const user = userEvent.setup();
     render(<App store={store} now={() => DAY1} />);

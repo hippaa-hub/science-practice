@@ -4,7 +4,7 @@ import type { Item, Topic } from './content/types';
 import { record } from './engine/boxes';
 import { buildMix, localDate } from './engine/mix';
 import {
-  allCans, canCount, canReached, earnedBadges, logMastery, lolaComment, totalXp, weekGain,
+  allCans, canCount, canReached, earnedBadges, logMastery, finishComment, totalXp, weekGain,
   type AnswerRecord, type RunKind,
 } from './engine/motivation';
 import { learnCheck, spellingSet, topicMix, wordKey, type BankWord } from './engine/practice';
@@ -87,7 +87,7 @@ export default function App({ store = idbStore, now = () => Date.now() }: { stor
       newBadges: [...earned].filter((b) => !before.badges.includes(b)),
       newCans,
       earned,
-      comment: lolaComment({
+      comment: finishComment({
         answered: Object.keys(firstTry).length,
         rightFirst: Object.values(firstTry).filter(Boolean).length,
         fixed: fresh.filter((r) => r.kind === 'retry' && r.correct).map((r) => r.id),
@@ -262,8 +262,8 @@ function Home({ saved, today, now, onStart, onOpen, onProgress, onMute }: {
       </div>
 
       <div className="hero">
-        <Mascot mood={doneToday ? 'cheer' : 'wave'} size={88} />
-        <div className="bubble">{doneToday ? 'You practised today. Well done!' : 'Hi Adele! Ten minutes of science today?'}</div>
+        <Mascot mood={doneToday ? 'cheer' : 'wave'} size={88} animate={!doneToday} />
+        <div className="bubble">{doneToday ? 'I practised today!' : 'Ready for ten minutes of science?'}</div>
       </div>
 
       <button className="btn block big blue" onClick={onStart}>{doneToday ? 'Another mix' : "Start today's mix"}</button>

@@ -195,7 +195,7 @@ p { margin: 0; }
 .nav .ico { font-size: 1.3rem; }
 .xp-gain { font-weight: 900; color: var(--purple-dark); font-size: 1.3rem; }
 
-/* Lola */
+/* Avatar */
 .mascot { position: relative; display: inline-block; flex-shrink: 0; }
 .mascot img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .mascot.wave img { animation: nod 1.2s ease-in-out infinite alternate; transform-origin: 50% 90%; }
@@ -302,3 +302,8 @@ span.block { display: block; }
 .home-top { display: flex; align-items: center; gap: 10px; padding-top: 8px; }
 .summary-hero .mascot { margin: 0 auto 6px; display: block; }
 .cando-strip { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; background: #fff8e1; border: 2px solid var(--yellow); border-bottom-width: 4px; border-radius: var(--radius); padding: 10px 14px; }
+/* Adele's avatar: a circle that matches the light-blue background of her animated clip */
+.mascot.avatar { border-radius: 50%; overflow: hidden; background: #eaf6ff; border: 3px solid #fff; box-shadow: 0 0 0 2px var(--blue-soft); }
+.mascot.avatar img, .mascot.avatar video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; display: block; transform: scale(1.5); transform-origin: 50% 12%; }
+.mascot.avatar video { cursor: pointer; }
+.mascot.avatar.wave img, .mascot.avatar.wave video { animation: none; }

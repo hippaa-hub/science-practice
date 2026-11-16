@@ -4,7 +4,7 @@ import { DAY, type ItemProgress, type ProgressMap } from './boxes';
 /**
  * Motivation, as in the maths and Spanish apps:
  * 1. Progress she can see, in what she CAN DO (the strongest motivator: seeing herself improve).
- * 2. A light game layer: XP that never goes down, levels, badges, Lola's specific comment.
+ * 2. A light game layer: XP that never goes down, levels, badges, a specific end-of-mix comment.
  * Everything is recomputed from the record, so nothing she does can make a number drop
  * (except the honest "can do" count, which pauses a skill she has not reviewed for a long time).
  */
@@ -193,7 +193,7 @@ export function earnedBadges(b: BadgeInput): Set<string> {
   return got;
 }
 
-// ---------- Lola's comment ----------
+// ---------- the end-of-mix comment ----------
 
 export interface MixSummary {
   answered: number;
@@ -204,7 +204,7 @@ export interface MixSummary {
 }
 
 /** Short and specific to what she did, never generic praise. */
-export function lolaComment(s: MixSummary, prompt: (id: string) => string): string {
+export function finishComment(s: MixSummary, prompt: (id: string) => string): string {
   if (s.newCans.length) return `New: "${s.newCans[0]}". That one is yours now!`;
   if (s.fixed.length) return `You missed "${short(prompt(s.fixed[0]))}" and then got it right on the second go. That is exactly how it sticks.`;
   if (s.asked.length) return `You asked about ${s.asked.length === 1 ? 'one question' : `${s.asked.length} questions`} instead of guessing. They come back so you can show you know them now.`;

@@ -5,28 +5,28 @@ export const topic: Topic = {
   unit: 'Cells',
   title: 'Cells and stem cells',
   learn: [
-    { title: 'All life is made of cells', picture: 'cells-variety', text: 'All living things are made of cells: trees, snakes, E. coli bacteria, yeast and humans.' },
-    { title: 'Form meets function', picture: 'cells-variety', text: 'A cell\'s shape (form) matches its job (function). Skin, heart, muscle and blood cells look different because they do different jobs. The parts of a cell work together as a system.' },
-    { title: 'Stem cells', picture: 'stem-cell', text: 'Stem cells are unspecialised: they can turn into many types of cell. There are three types: embryonic, adult, and artificially induced (reprogrammed in a lab).' },
-    { title: 'Cells in medicine', picture: 'medicine', text: 'Targeted cancer drugs. Engineered bacteria that make human insulin. Stem cells that could repair spine, heart or blood tissue.' },
-    { title: 'Ethics', picture: 'scales', text: 'Stem cells bring a big promise of new cures. They also raise questions of right and wrong, so research needs strict rules.' },
+    { title: 'All life is made of cells', photo: 'c1-living-things', picture: 'cells-variety', text: 'All living things are made of cells: trees, snakes, E. coli bacteria, yeast and humans.' },
+    { title: 'Form meets function', photo: 'c1-cell-shapes', text: 'A cell\'s shape (form) matches its job (function). Skin, heart, muscle and blood cells look different because they do different jobs. The parts of a cell work together as a system.' },
+    { title: 'Stem cells', photo: 'c1-stem-cell', picture: 'stem-cell', text: 'Stem cells are unspecialised: they can turn into many types of cell. There are three types: embryonic, adult, and artificially induced (reprogrammed in a lab).' },
+    { title: 'Cells in medicine', photo: 'c1-medicine', picture: 'medicine', text: 'Targeted cancer drugs. Engineered bacteria that make human insulin. Stem cells that could repair spine, heart or blood tissue.' },
+    { title: 'Ethics', photo: 'c1-ethics', text: 'Stem cells bring a big promise of new cures. They also raise questions of right and wrong, so research needs strict rules.' },
   ],
   items: [
     {
-      id: 'C1-made-of', topic: 'C1', type: 'choice',
+      id: 'C1-made-of', topic: 'C1', type: 'choice', photo: 'c1-living-things',
       prompt: 'What are all living things made of?',
       options: ['Cells', 'Atoms only', 'Water only', 'Organs only'],
       answer: 'Cells',
       explain: 'All living things are made of cells: trees, snakes, bacteria, yeast and humans.',
     },
     {
-      id: 'C1-word-cells', topic: 'C1', type: 'word',
+      id: 'C1-word-cells', topic: 'C1', type: 'word', photo: 'c1-living-things',
       prompt: 'Type the word: trees, snakes, yeast and humans are all made of these tiny units.',
       answer: 'cells', accept: ['cell'],
       explain: 'Cells. Every living thing is made of them.',
     },
     {
-      id: 'C1-sort-living', topic: 'C1', type: 'sort',
+      id: 'C1-sort-living', topic: 'C1', type: 'sort', photo: 'c1-living-things',
       prompt: 'Is it made of cells?',
       bins: ['Made of cells', 'Not made of cells'],
       cards: [
@@ -40,33 +40,33 @@ export const topic: Topic = {
       explain: 'Living things are made of cells. A rock and glass were never alive.',
     },
     {
-      id: 'C1-form-function', topic: 'C1', type: 'choice',
+      id: 'C1-form-function', topic: 'C1', type: 'choice', photo: 'c1-cell-shapes',
       prompt: '"Form meets function" means…',
       options: ['A cell\'s shape matches its job', 'All cells have the same shape', 'Cells change shape every day', 'Only plant cells have a job'],
       answer: 'A cell\'s shape matches its job',
       explain: 'Form = shape. Function = job. Skin, heart, muscle and blood cells look different because they do different jobs.',
     },
     {
-      id: 'C1-word-function', topic: 'C1', type: 'word',
+      id: 'C1-word-function', topic: 'C1', type: 'word', photo: 'c1-cell-shapes',
       prompt: 'A cell\'s shape is its form. A cell\'s job is its ______.',
       answer: 'function',
       explain: 'Form meets function: the shape matches the job.',
     },
     {
-      id: 'C1-what-stem', topic: 'C1', type: 'choice',
+      id: 'C1-what-stem', topic: 'C1', type: 'choice', photo: 'c1-stem-cell',
       prompt: 'What is a stem cell?',
       options: ['An unspecialised cell that can turn into many types of cell', 'A cell found only in plant stems', 'A cell with no nucleus', 'A blood cell'],
       answer: 'An unspecialised cell that can turn into many types of cell',
       explain: 'Stem cells have no special job yet, so they can become many kinds of cell.',
     },
     {
-      id: 'C1-word-unspecialised', topic: 'C1', type: 'word',
+      id: 'C1-word-unspecialised', topic: 'C1', type: 'word', photo: 'c1-stem-cell',
       prompt: 'Type the word: stem cells have no special job yet. They are ______ (starts with "un").',
       answer: 'unspecialised', accept: ['unspecialized'],
       explain: 'Unspecialised: un + special + ised. British spelling uses "s".',
     },
     {
-      id: 'C1-sort-stem', topic: 'C1', type: 'sort',
+      id: 'C1-sort-stem', topic: 'C1', type: 'sort', photo: 'c1-stem-cell',
       prompt: 'Is it a type of stem cell, or a specialised cell?',
       bins: ['Stem cell', 'Specialised cell'],
       cards: [
@@ -80,7 +80,7 @@ export const topic: Topic = {
       explain: 'The three types of stem cell: embryonic, adult and artificially induced. Skin, muscle and blood cells already have a job.',
     },
     {
-      id: 'C1-match-types', topic: 'C1', type: 'match',
+      id: 'C1-match-types', topic: 'C1', type: 'match', photo: 'c1-stem-cell',
       prompt: 'Match each type of stem cell to where it comes from.',
       pairs: [
         ['Embryonic', 'From an embryo'],
@@ -90,20 +90,20 @@ export const topic: Topic = {
       explain: 'Embryonic: embryo. Adult: adult body. Artificially induced: reprogrammed in a lab.',
     },
     {
-      id: 'C1-word-induced', topic: 'C1', type: 'word',
+      id: 'C1-word-induced', topic: 'C1', type: 'word', photo: 'c1-stem-cell',
       prompt: 'Stem cells reprogrammed in a lab are called "artificially ______" stem cells.',
       answer: 'induced',
       explain: 'Artificially induced stem cells are made in a lab from ordinary cells.',
     },
     {
-      id: 'C1-not-stem', topic: 'C1', type: 'choice',
+      id: 'C1-not-stem', topic: 'C1', type: 'choice', photo: 'c1-stem-cell',
       prompt: 'Which of these is NOT a type of stem cell?',
       options: ['Red blood cell', 'Embryonic', 'Adult', 'Artificially induced'],
       answer: 'Red blood cell',
       explain: 'A red blood cell is specialised: it already has a job.',
     },
     {
-      id: 'C1-match-medicine', topic: 'C1', type: 'match',
+      id: 'C1-match-medicine', topic: 'C1', type: 'match', photo: 'c1-medicine',
       prompt: 'Match each medical use of cells to what it does.',
       pairs: [
         ['Targeted cancer drugs', 'Attack cancer cells'],
@@ -113,41 +113,41 @@ export const topic: Topic = {
       explain: 'Three ways cells are used in medicine, from your lesson.',
     },
     {
-      id: 'C1-insulin-bacteria', topic: 'C1', type: 'choice',
+      id: 'C1-insulin-bacteria', topic: 'C1', type: 'choice', photo: 'c1-medicine',
       prompt: 'Which of these makes human insulin for medicine?',
       options: ['Engineered bacteria', 'Yeast bread', 'Plant chloroplasts', 'Red blood cells'],
       answer: 'Engineered bacteria',
       explain: 'Bacteria can be engineered (changed) so they make human insulin.',
     },
     {
-      id: 'C1-word-insulin', topic: 'C1', type: 'word',
+      id: 'C1-word-insulin', topic: 'C1', type: 'word', photo: 'c1-medicine',
       prompt: 'Type the word: engineered bacteria make this, and people with Type 1 diabetes need it.',
       answer: 'insulin',
       explain: 'Insulin. Its spelling has one s and one l: i-n-s-u-l-i-n.',
     },
     {
-      id: 'C1-repair', topic: 'C1', type: 'choice',
+      id: 'C1-repair', topic: 'C1', type: 'choice', photo: 'c1-medicine',
       prompt: 'Which tissues could stem cells help repair, from your lesson?',
       options: ['Spine, heart and blood', 'Hair, nails and teeth', 'Bone only', 'None: stem cells cannot repair tissue'],
       answer: 'Spine, heart and blood',
       explain: 'Stem cells could repair spine, heart or blood tissue.',
     },
     {
-      id: 'C1-promise', topic: 'C1', type: 'choice',
+      id: 'C1-promise', topic: 'C1', type: 'choice', photo: 'c1-ethics',
       prompt: 'Why are scientists excited about stem cells?',
       options: ['They could give new cures', 'They make food last longer', 'They make plants grow faster', 'They replace microscopes'],
       answer: 'They could give new cures',
       explain: 'The big promise: new cures, for example repairing damaged tissue.',
     },
     {
-      id: 'C1-rules', topic: 'C1', type: 'choice',
+      id: 'C1-rules', topic: 'C1', type: 'choice', photo: 'c1-ethics',
       prompt: 'Why does stem cell research need strict rules?',
       options: ['It raises questions of right and wrong (ethics)', 'Stem cells are too big to study', 'It is too cheap', 'Stem cells cannot be seen'],
       answer: 'It raises questions of right and wrong (ethics)',
       explain: 'Ethics means thinking about right and wrong. Big promise, but strict rules are needed.',
     },
     {
-      id: 'C1-form-explain', topic: 'C1', type: 'short', explainWhy: true,
+      id: 'C1-form-explain', topic: 'C1', type: 'short', photo: 'c1-cell-shapes', explainWhy: true,
       prompt: 'Explain what "form meets function" means. Use cells as an example.',
       mustInclude: [
         { idea: 'Form is the shape; function is the job', any: ['shape', 'form'] },
@@ -158,7 +158,7 @@ export const topic: Topic = {
       explain: 'Define the idea first, then give an example. That is what "explain" with an example needs.',
     },
     {
-      id: 'C1-three-types', topic: 'C1', type: 'short',
+      id: 'C1-three-types', topic: 'C1', type: 'short', photo: 'c1-stem-cell',
       prompt: 'Name the three types of stem cell.',
       mustInclude: [
         { idea: 'Embryonic', any: ['embryo'] },
@@ -169,7 +169,7 @@ export const topic: Topic = {
       explain: 'Three types: embryonic, adult, artificially induced.',
     },
     {
-      id: 'C1-for-against', topic: 'C1', type: 'short', explainWhy: true,
+      id: 'C1-for-against', topic: 'C1', type: 'short', photo: 'c1-ethics', explainWhy: true,
       prompt: 'Give one reason FOR using stem cells in medicine and one reason to be CAREFUL.',
       mustInclude: [
         { idea: 'For: new cures, e.g. repairing spine, heart or blood tissue', any: ['cure', 'repair', 'treat', 'heal', 'fix', 'help'] },

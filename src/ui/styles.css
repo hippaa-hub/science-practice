@@ -289,3 +289,6 @@ fieldset.plain { border: 0; padding: 0; margin: 0; min-width: 0; }
 .spelling .diff { color: var(--orange-dark); text-decoration: underline; text-decoration-thickness: 3px; }
 .hl { color: var(--purple-dark); }
 .label-row:not(.paired):not(.selected) .pair-num { background: #c4c4c4; }
+.photo { margin: 0; border-radius: var(--radius); overflow: hidden; border: 2px solid var(--line); background: #fff; }
+.photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.feedback .photo { border-color: rgba(0,0,0,0.08); }

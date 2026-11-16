@@ -105,7 +105,7 @@ describe('Phase 2 screens', () => {
     await user.click(screen.getByRole('button', { name: /Cells and stem cells/ }));
     await user.click(screen.getByRole('button', { name: 'Learn' }));
     for (let k = 0; k < 10 && !screen.queryByRole('button', { name: 'Check yourself' }); k++) {
-      expect(document.querySelector('.pic svg')).not.toBeNull();
+      expect(document.querySelector('.pic svg, .photo img')).not.toBeNull();
       await user.click(screen.getByRole('button', { name: 'Next' }));
     }
     await user.click(screen.getByRole('button', { name: 'Check yourself' }));

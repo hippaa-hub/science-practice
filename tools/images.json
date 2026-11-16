@@ -1,0 +1,102 @@
+[
+ {
+  "id": "c1-living-things",
+  "prompt": "A group portrait of very different living things side by side: a tall tree, a green snake, a small cluster of yeast cells shown big, rod-shaped E. coli bacteria shown big, and a smiling teenage girl. Each one has a small magnifying-glass circle beside it showing that it is built from tiny cells."
+ },
+ {
+  "id": "c1-cell-shapes",
+  "prompt": "Four kinds of human cells shown side by side as seen in a colourful microscope view: round red blood cells shaped like dimpled discs, flat tightly packed skin cells, long thin spindle-shaped muscle cells, and branching striped heart muscle cells joined together."
+ },
+ {
+  "id": "c1-stem-cell",
+  "prompt": "A single round, plain stem cell in the centre with glowing paths branching out to three different specialised cells: a red blood cell, a long muscle cell and a flat skin cell. It shows one unspecialised cell able to become many kinds of cell."
+ },
+ {
+  "id": "c1-medicine",
+  "prompt": "Three small scenes in one picture: a doctor holding a targeted cancer medicine capsule that seeks out a dark cancer cell; a laboratory flask full of rod-shaped bacteria making tiny blue insulin particles; and stem cells repairing a damaged area of a human heart."
+ },
+ {
+  "id": "c1-ethics",
+  "prompt": "A group of scientists and a doctor sitting around a table having a serious, respectful discussion, with a large balance scale in the middle of the table: on one side a glowing healthy heart representing new cures, on the other side a closed rule book representing strict rules."
+ },
+ {
+  "id": "c2-water-drop-lens",
+  "prompt": "Ancient times: a person looking through a curved piece of glass and a water droplet on a leaf, which makes a small insect look much bigger. Warm historical setting."
+ },
+ {
+  "id": "c2-janssen",
+  "prompt": "Netherlands in 1590: a father and son, Dutch spectacle makers, in their workshop with glass lenses on the bench. The son holds an early microscope: a short upright brass tube with a lens at each end, pointed DOWN at a tiny insect on the table, and he looks down into the top of the tube. The father watches, pleased. It must clearly be a microscope pointing down at something small, not a telescope."
+ },
+ {
+  "id": "c2-hooke-cork",
+  "prompt": "England 1665: a scientist in a long curly wig looking through a large ornate leather-and-brass microscope at a thin slice of cork. Next to him, a circle shows what he sees: rows of empty, box-shaped compartments like a honeycomb."
+ },
+ {
+  "id": "c2-monk-rooms",
+  "prompt": "A medieval monastery corridor seen from above, with a long row of small identical bare stone rooms side by side, each with a monk's simple bed. The rooms look like little boxes in a row."
+ },
+ {
+  "id": "c2-leeuwenhoek",
+  "prompt": "Netherlands around 1670: a curious man holding a tiny handheld brass microscope with a single small lens close to his eye, looking at a drop of pond water. A large circle beside him shows tiny wriggling living creatures, bacteria and yeast swimming in the water."
+ },
+ {
+  "id": "c2-student-microscope",
+  "prompt": "A 12-year-old girl in a school science lab looking through a modern compound light microscope with a lamp at the bottom, a slide on the stage held by two clips, and three objective lenses on a turning nosepiece."
+ },
+ {
+  "id": "c2-plant-animal-view",
+  "prompt": "Two circular microscope views side by side. Left circle: plant cells, neat box-shaped rectangular cells with thick walls and many small green chloroplasts, like a brick wall. Right circle: animal cheek cells, rounded irregular flat cells stained light blue with a darker blue nucleus in each."
+ },
+ {
+  "id": "c3-plant-cell",
+  "prompt": "A 3D cutaway of a single plant cell: thick green-tinted rigid cell wall on the outside, a thin cell membrane just inside it, a large clear central vacuole, several green oval chloroplasts around the edge, a round nucleus pushed to one side, and a few small sausage-shaped mitochondria."
+ },
+ {
+  "id": "c3-animal-cell",
+  "prompt": "A 3D cutaway of a single animal cell with a soft round irregular shape: a thin flexible cell membrane outside, jelly-like cytoplasm inside, a large round purple nucleus with a darker nucleolus, several orange sausage-shaped mitochondria with folded insides, and many tiny dots (ribosomes). No cell wall, no chloroplasts."
+ },
+ {
+  "id": "c3-system",
+  "prompt": "A cell shown as a busy, well-organised system: a cutaway animal cell where the nucleus, mitochondria and membrane are all clearly connected and working together, with glowing lines linking them like a team. Teamwork feeling."
+ },
+ {
+  "id": "c3-mitochondrion",
+  "prompt": "A large 3D cutaway of one mitochondrion: smooth outer membrane, and an inner membrane folded many times into deep folds (cristae) that make a huge surface area, with small sparks of energy glowing on the folds."
+ },
+ {
+  "id": "c3-respiration",
+  "prompt": "A girl running in a park. A big zoom-in circle shows inside one of her leg muscle cells, where orange mitochondria glow as glucose and oxygen go in and carbon dioxide and water come out, releasing bright energy that powers her running."
+ },
+ {
+  "id": "c3-liver-cell",
+  "prompt": "A cutaway of a liver cell packed full of hundreds of small orange mitochondria, much more crowded than an ordinary cell, showing that it needs lots of energy."
+ },
+ {
+  "id": "c3-membrane",
+  "prompt": "Close-up of a cell membrane as a flexible double layer, with protein channels like small gates. Some small particles pass through the channels into the cell, while larger particles are blocked outside. Shows that the membrane is selectively permeable."
+ },
+ {
+  "id": "c3-nucleus",
+  "prompt": "A large 3D cutaway of a cell nucleus: a round purple nucleus with a double membrane and pores, coiled DNA threads inside, and a dense darker nucleolus in the middle releasing tiny ribosomes."
+ },
+ {
+  "id": "c3-ribosomes",
+  "prompt": "Close-up inside a cell: tiny round ribosomes building a long chain protein bead by bead, like a small factory machine assembling a string of beads."
+ },
+ {
+  "id": "c3-chloroplast",
+  "prompt": "A large 3D cutaway of a single green chloroplast with stacks of green discs inside, and rays of sunlight shining onto it, inside a leaf."
+ },
+ {
+  "id": "c3-vacuole",
+  "prompt": "Two plant cells side by side: the left one with a large full vacuole of cell sap pressing outward so the cell is firm and the leaf stands up; the right one with a small shrunken vacuole so the cell is floppy and the leaf droops."
+ },
+ {
+  "id": "c3-beta-cells",
+  "prompt": "The pancreas organ shown inside the human body near the stomach, with a zoom-in circle showing a cluster of beta-cells releasing tiny blue insulin particles into a blood vessel."
+ },
+ {
+  "id": "c3-insulin-pen",
+  "prompt": "A cheerful teenager calmly using an insulin pen on their arm at a kitchen table, with a healthy breakfast nearby. Positive, everyday, not scary."
+ }
+]

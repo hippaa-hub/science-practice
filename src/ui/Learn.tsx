@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Topic } from '../content/types';
 import { Picture } from '../pictures';
+import { Photo } from './Photo';
 
 /** Short cards, one picture each, then a quick check. */
 export function Learn({ topic, onClose, onCheck }: { topic: Topic; onClose: () => void; onCheck: () => void }) {
@@ -15,6 +16,7 @@ export function Learn({ topic, onClose, onCheck }: { topic: Topic; onClose: () =
       </div>
       <p className="small muted">{topic.title} · card {i + 1} of {topic.learn.length}</p>
       <h2>{card.title}</h2>
+      {card.photo && <Photo name={card.photo} alt={card.title} />}
       {card.picture && <Picture name={card.picture} spots={card.labels} legend />}
       <p className="learn-text">{card.text}</p>
       {card.example && (

@@ -9,6 +9,8 @@ export interface LearnCard {
   picture?: string;
   /** Diagram parts to number and name under the picture. */
   labels?: string[];
+  /** An illustration in public/img (name without .webp), shown above the diagram. */
+  photo?: string;
   example?: string;
 }
 
@@ -26,6 +28,8 @@ interface Base {
   explain: string;
   /** Hide until this date (YYYY-MM-DD), e.g. while it would answer homework that is still due. */
   from?: string;
+  /** An illustration in public/img, shown with the explanation AFTER she answers (never before). */
+  photo?: string;
 }
 
 export interface ChoiceItem extends Base {

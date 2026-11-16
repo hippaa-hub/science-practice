@@ -6,16 +6,23 @@ export const topic: Topic = {
   unit: 'Cells',
   title: 'Organelles: a cell is a system',
   learn: [
-    { title: 'A cell is a system', picture: 'animal-cell', text: 'A system is a group of parts that depend on each other and work together for one purpose. The organelles in a cell work together so the organism can survive.' },
-    { title: 'Inside an animal cell', picture: 'animal-cell', labels: ['membrane', 'cytoplasm', 'nucleus', 'nucleolus', 'mitochondria', 'ribosomes'], text: 'The membrane controls what goes in and out. The nucleus holds DNA and controls the cell. The nucleolus makes ribosomes, and ribosomes make proteins. Reactions happen in the cytoplasm.' },
-    { title: 'Energy: respiration', picture: 'respiration', text: 'Cells need glucose and oxygen. Respiration happens in the mitochondria and releases energy. Carbon dioxide is waste.', example: 'glucose + oxygen → carbon dioxide + water + energy' },
-    { title: 'Mitochondria: form meets function', picture: 'mitochondrion', text: 'The inner membrane of a mitochondrion is folded (cristae). This gives a large surface area for respiration. Liver cells have up to 100,000 mitochondria each.' },
-    { title: 'Plant-only parts', picture: 'plant-cell', labels: ['wall', 'membrane', 'vacuole', 'chloroplasts', 'nucleus', 'mitochondria'], text: 'Cell wall: cellulose, gives a rigid shape. Chloroplasts: chlorophyll, photosynthesis. Large permanent vacuole: cell sap, keeps the cell firm. Plant cells have a membrane and mitochondria too.' },
-    { title: 'Beta-cells and insulin', picture: 'beta-cell', text: 'Pancreatic beta-cells make insulin from amino acids. In Type 1 diabetes the beta-cells are destroyed, so people need daily insulin injections.' },
+    { title: 'A cell is a system', photo: 'c3-system', text: 'A system is a group of parts that depend on each other and work together for one purpose. The organelles in a cell work together so the organism can survive.' },
+    { title: 'Inside an animal cell', photo: 'c3-animal-cell', picture: 'animal-cell', labels: ['membrane', 'cytoplasm', 'nucleus', 'nucleolus', 'mitochondria', 'ribosomes'], text: 'An animal cell has a membrane, cytoplasm, a nucleus with a nucleolus, mitochondria and ribosomes. Reactions happen in the jelly-like cytoplasm.' },
+    { title: 'The cell membrane', photo: 'c3-membrane', text: 'The membrane is selectively permeable: protein channels let some substances in and out, but not others.' },
+    { title: 'The nucleus', photo: 'c3-nucleus', text: 'The nucleus holds DNA and controls the cell. It stains blue. The nucleolus, inside it, makes ribosomes.' },
+    { title: 'Ribosomes', photo: 'c3-ribosomes', text: 'Ribosomes are tiny organelles that make proteins.' },
+    { title: 'Energy: respiration', photo: 'c3-respiration', picture: 'respiration', text: 'Cells need glucose and oxygen. Respiration happens in the mitochondria and releases energy. Carbon dioxide is waste.', example: 'glucose + oxygen → carbon dioxide + water + energy' },
+    { title: 'Mitochondria: form meets function', photo: 'c3-mitochondrion', picture: 'mitochondrion', text: 'The inner membrane of a mitochondrion is folded (cristae). This gives a large surface area, so more respiration can happen.' },
+    { title: 'Cells that need lots of energy', photo: 'c3-liver-cell', text: 'Liver cells have up to 100,000 mitochondria each.' },
+    { title: 'Plant-only parts', photo: 'c3-plant-cell', picture: 'plant-cell', labels: ['wall', 'membrane', 'vacuole', 'chloroplasts', 'nucleus', 'mitochondria'], text: 'Plant cells have three extra parts: a cell wall, chloroplasts and a large permanent vacuole. They have a membrane and mitochondria too.' },
+    { title: 'Cell wall and chloroplasts', photo: 'c3-chloroplast', text: 'The cell wall is made of cellulose and gives a rigid shape. Chloroplasts contain green chlorophyll and do photosynthesis.' },
+    { title: 'The vacuole', photo: 'c3-vacuole', text: 'The large permanent vacuole holds cell sap. It keeps the cell firm.' },
+    { title: 'Beta-cells and insulin', photo: 'c3-beta-cells', picture: 'beta-cell', text: 'Pancreatic beta-cells make insulin from amino acids.' },
+    { title: 'Type 1 diabetes', photo: 'c3-insulin-pen', text: 'In Type 1 diabetes the beta-cells are destroyed, so the body cannot make insulin. People need daily insulin injections. In the future, other cells might be reprogrammed to make insulin.' },
   ],
   items: [
     {
-      id: 'C3-match-main', topic: 'C3', type: 'match',
+      id: 'C3-match-main', topic: 'C3', type: 'match', photo: 'c3-animal-cell',
       prompt: 'Match each organelle to its job.',
       pairs: [
         ['Nucleus', 'Holds DNA and controls the cell'],
@@ -27,7 +34,7 @@ export const topic: Topic = {
       explain: 'Nucleus controls, ribosomes make proteins, mitochondria release energy, membrane controls entry and exit, cytoplasm is where reactions happen.',
     },
     {
-      id: 'C3-match-plant', topic: 'C3', type: 'match',
+      id: 'C3-match-plant', topic: 'C3', type: 'match', photo: 'c3-plant-cell',
       prompt: 'Match each part to its job.',
       pairs: [
         ['Cell wall', 'Made of cellulose; gives a rigid shape'],
@@ -38,7 +45,7 @@ export const topic: Topic = {
       explain: 'Wall: cellulose, rigid. Chloroplasts: chlorophyll, photosynthesis. Vacuole: cell sap, firm. Nucleolus: makes ribosomes.',
     },
     {
-      id: 'C3-sort-plant-only', topic: 'C3', type: 'sort',
+      id: 'C3-sort-plant-only', topic: 'C3', type: 'sort', photo: 'c3-plant-cell',
       prompt: 'Is it found in both plant and animal cells, or only in plant cells?',
       bins: ['Both', 'Plant cells only'],
       cards: [
@@ -53,7 +60,7 @@ export const topic: Topic = {
       explain: 'Plant cells have everything animal cells have, plus a cell wall, chloroplasts and a large permanent vacuole.',
     },
     {
-      id: 'C3-sort-respiration', topic: 'C3', type: 'sort',
+      id: 'C3-sort-respiration', topic: 'C3', type: 'sort', photo: 'c3-respiration',
       prompt: 'Respiration: does it go in, or come out?',
       bins: ['Goes in', 'Comes out'],
       cards: [
@@ -66,91 +73,91 @@ export const topic: Topic = {
       explain: 'glucose + oxygen → carbon dioxide + water + energy.',
     },
     {
-      id: 'C3-word-mito', topic: 'C3', type: 'word',
+      id: 'C3-word-mito', topic: 'C3', type: 'word', photo: 'c3-mitochondrion',
       prompt: 'Type the name: the organelle where respiration happens and energy is released.',
       answer: 'mitochondria', accept: ['mitochondrion'],
       explain: 'Mitochondria (one is a mitochondrion). Spelling: mi-to-chon-dri-a.',
     },
     {
-      id: 'C3-word-nucleus', topic: 'C3', type: 'word',
+      id: 'C3-word-nucleus', topic: 'C3', type: 'word', photo: 'c3-nucleus',
       prompt: 'Type the name: the organelle that holds DNA and controls the cell.',
       answer: 'nucleus',
       explain: 'The nucleus. It stains blue on slides.',
     },
     {
-      id: 'C3-word-ribosomes', topic: 'C3', type: 'word',
+      id: 'C3-word-ribosomes', topic: 'C3', type: 'word', photo: 'c3-ribosomes',
       prompt: 'Type the name: the tiny organelles that make proteins.',
       answer: 'ribosomes', accept: ['ribosome'],
       explain: 'Ribosomes make proteins. They are made by the nucleolus.',
     },
     {
-      id: 'C3-word-chlorophyll', topic: 'C3', type: 'word',
+      id: 'C3-word-chlorophyll', topic: 'C3', type: 'word', photo: 'c3-chloroplast',
       prompt: 'Type the name: the green substance inside chloroplasts.',
       answer: 'chlorophyll',
       explain: 'Chlorophyll: two l\'s at the end, c-h-l-o-r-o-p-h-y-l-l.',
     },
     {
-      id: 'C3-word-cellulose', topic: 'C3', type: 'word',
+      id: 'C3-word-cellulose', topic: 'C3', type: 'word', photo: 'c3-plant-cell',
       prompt: 'Type the name: what the plant cell wall is made of.',
       answer: 'cellulose',
       explain: 'Cellulose makes the cell wall rigid.',
     },
     {
-      id: 'C3-word-energy', topic: 'C3', type: 'word',
+      id: 'C3-word-energy', topic: 'C3', type: 'word', photo: 'c3-respiration',
       prompt: 'Finish the respiration equation: glucose + oxygen → carbon dioxide + water + ______',
       answer: 'energy',
       explain: 'glucose + oxygen → carbon dioxide + water + energy.',
     },
     {
-      id: 'C3-word-cytoplasm', topic: 'C3', type: 'word',
+      id: 'C3-word-cytoplasm', topic: 'C3', type: 'word', photo: 'c3-animal-cell',
       prompt: 'Type the name: the jelly-like fluid in the cell where reactions happen.',
       answer: 'cytoplasm',
       explain: 'Cytoplasm: c-y-t-o-p-l-a-s-m.',
     },
     {
-      id: 'C3-beta', topic: 'C3', type: 'choice',
+      id: 'C3-beta', topic: 'C3', type: 'choice', photo: 'c3-beta-cells',
       prompt: 'Which cells make insulin?',
       options: ['Pancreatic beta-cells', 'Red blood cells', 'Liver cells', 'Skin cells'],
       answer: 'Pancreatic beta-cells',
       explain: 'Beta-cells in the pancreas make insulin from amino acids.',
     },
     {
-      id: 'C3-insulin-from', topic: 'C3', type: 'choice',
+      id: 'C3-insulin-from', topic: 'C3', type: 'choice', photo: 'c3-beta-cells',
       prompt: 'Beta-cells make insulin from…',
       options: ['Amino acids', 'Glucose', 'Cellulose', 'Oxygen'],
       answer: 'Amino acids',
       explain: 'Insulin is made from amino acids.',
     },
     {
-      id: 'C3-permeable', topic: 'C3', type: 'choice',
+      id: 'C3-permeable', topic: 'C3', type: 'choice', photo: 'c3-membrane',
       prompt: 'The cell membrane is "selectively permeable". What does that mean?',
       options: ['It lets some substances through but not others', 'It lets nothing through', 'It lets everything through', 'It makes the cell rigid'],
       answer: 'It lets some substances through but not others',
       explain: 'Protein channels in the membrane control what goes in and out.',
     },
     {
-      id: 'C3-cristae', topic: 'C3', type: 'choice',
+      id: 'C3-cristae', topic: 'C3', type: 'choice', photo: 'c3-mitochondrion',
       prompt: 'Why is the inner membrane of a mitochondrion folded (cristae)?',
       options: ['To give a large surface area', 'To store DNA', 'To make the cell rigid', 'To hold chlorophyll'],
       answer: 'To give a large surface area',
       explain: 'More surface area means more room for respiration to happen.',
     },
     {
-      id: 'C3-nucleolus', topic: 'C3', type: 'choice',
+      id: 'C3-nucleolus', topic: 'C3', type: 'choice', photo: 'c3-nucleus',
       prompt: 'What does the nucleolus make?',
       options: ['Ribosomes', 'Proteins', 'Insulin', 'Glucose'],
       answer: 'Ribosomes',
       explain: 'The nucleolus is inside the nucleus and makes ribosomes. Ribosomes then make proteins.',
     },
     {
-      id: 'C3-type1', topic: 'C3', type: 'choice',
+      id: 'C3-type1', topic: 'C3', type: 'choice', photo: 'c3-insulin-pen',
       prompt: 'What happens to the beta-cells in Type 1 diabetes?',
       options: ['They are destroyed', 'They make too much insulin', 'They turn into plant cells', 'They grow chloroplasts'],
       answer: 'They are destroyed',
       explain: 'The beta-cells are destroyed, so the body cannot make its own insulin.',
     },
     {
-      id: 'C3-needs', topic: 'C3', type: 'sort',
+      id: 'C3-needs', topic: 'C3', type: 'sort', photo: 'c3-respiration',
       prompt: 'What a cell needs: does it come in, or go out as waste?',
       bins: ['Comes in', 'Goes out as waste'],
       cards: [
@@ -162,7 +169,7 @@ export const topic: Topic = {
       explain: 'Glucose, oxygen and minerals come in. Carbon dioxide is waste and goes out.',
     },
     {
-      id: 'C3-liver', topic: 'C3', type: 'number',
+      id: 'C3-liver', topic: 'C3', type: 'number', photo: 'c3-liver-cell',
       prompt: 'A liver cell can have up to 100,000 mitochondria. How many mitochondria could 3 liver cells have?',
       answer: 300000, unit: '', tolerance: 0,
       steps: ['Multiply: cells × mitochondria per cell', '3 × 100,000 = 300,000'],
@@ -177,7 +184,7 @@ export const topic: Topic = {
       explain: 'Liver cells need lots of energy, so they have lots of mitochondria.',
     },
     {
-      id: 'C3-equation', topic: 'C3', type: 'short',
+      id: 'C3-equation', topic: 'C3', type: 'short', photo: 'c3-respiration',
       prompt: 'Write the word equation for cellular respiration.',
       mustInclude: [
         { idea: 'Glucose', any: ['glucose'] },
@@ -190,7 +197,7 @@ export const topic: Topic = {
       explain: 'Inputs on the left, products on the right of the arrow.',
     },
     {
-      id: 'C3-diabetes-why', topic: 'C3', type: 'short', explainWhy: true,
+      id: 'C3-diabetes-why', topic: 'C3', type: 'short', photo: 'c3-insulin-pen', explainWhy: true,
       prompt: 'Explain why people with Type 1 diabetes need insulin injections every day.',
       mustInclude: [
         { idea: 'Their beta-cells are destroyed', any: ['destroy', 'damage', 'killed', 'not working', "don't work", 'do not work', 'dead'] },
@@ -201,7 +208,7 @@ export const topic: Topic = {
       explain: 'A good "explain" links cause → effect: cells destroyed → no insulin → injections needed.',
     },
     {
-      id: 'C3-system', topic: 'C3', type: 'short',
+      id: 'C3-system', topic: 'C3', type: 'short', photo: 'c3-system',
       prompt: 'Define a system. Then say why a cell is a system.',
       mustInclude: [
         { idea: 'A group of parts', any: ['parts', 'organelles', 'group'] },
@@ -212,7 +219,7 @@ export const topic: Topic = {
       explain: 'Define = give the exact meaning. Then use an example to show it.',
     },
     {
-      id: 'C3-firm-why', topic: 'C3', type: 'short', explainWhy: true,
+      id: 'C3-firm-why', topic: 'C3', type: 'short', photo: 'c3-vacuole', explainWhy: true,
       prompt: 'Explain why a plant cell keeps a firm, rigid shape.',
       mustInclude: [
         { idea: 'The cell wall (cellulose) is rigid', any: ['wall', 'cellulose'] },
@@ -222,7 +229,7 @@ export const topic: Topic = {
       explain: 'Two parts work together here: the wall and the vacuole.',
     },
     {
-      id: 'C3-mito-describe', topic: 'C3', type: 'short',
+      id: 'C3-mito-describe', topic: 'C3', type: 'short', photo: 'c3-mitochondrion',
       prompt: 'Describe what mitochondria do, and why their inner membrane is folded.',
       mustInclude: [
         { idea: 'Respiration happens there', any: ['respiration', 'respire'] },
@@ -233,13 +240,13 @@ export const topic: Topic = {
       explain: 'Describe the job first, then the form that helps the job: form meets function.',
     },
     {
-      id: 'C3-label-animal', topic: 'C3', type: 'label',
+      id: 'C3-label-animal', topic: 'C3', type: 'label', photo: 'c3-animal-cell',
       prompt: 'Label the animal cell.',
       picture: 'animal-cell', spots: ['membrane', 'cytoplasm', 'nucleus', 'mitochondria', 'ribosomes'],
       explain: 'Membrane on the outside, cytoplasm filling it, nucleus in the middle, mitochondria (folded inside), ribosomes as tiny dots.',
     },
     {
-      id: 'C3-label-plant', topic: 'C3', type: 'label',
+      id: 'C3-label-plant', topic: 'C3', type: 'label', photo: 'c3-plant-cell',
       prompt: 'Label the plant cell.',
       picture: 'plant-cell', spots: ['wall', 'membrane', 'vacuole', 'chloroplasts', 'nucleus'],
       explain: 'The thick outer layer is the cell wall; the membrane is just inside it. The big space is the vacuole. Green ovals are chloroplasts.',

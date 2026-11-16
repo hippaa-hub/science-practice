@@ -3,6 +3,7 @@ import type { Item } from '../content/types';
 import { answer, current, type SessionState } from '../engine/session';
 import { CellIcon } from './CellIcon';
 import { ItemView, type Outcome } from './ItemView';
+import { Photo } from './Photo';
 
 /** Plays a list of questions (Daily Mix, topic practice, or the check after Learn cards). */
 export function Run({ items, session, onAnswer, onQuit }: {
@@ -42,6 +43,7 @@ export function Run({ items, session, onAnswer, onQuit }: {
           {!outcome.correct && outcome.reveal && <p className="pre"><b>Answer:</b> {outcome.reveal}</p>}
           {outcome.steps && !outcome.correct && <ol className="steps-list">{outcome.steps.map((s) => <li key={s}>{s}</li>)}</ol>}
           <p>{item.explain}</p>
+          {item.photo && <Photo name={item.photo} />}
           {!outcome.correct && !entry.repeat && <p className="small muted">This one will come back at the end and again tomorrow.</p>}
           <button className={`btn block big ${outcome.correct ? '' : 'orange'}`} onClick={next} autoFocus>Continue</button>
         </div>

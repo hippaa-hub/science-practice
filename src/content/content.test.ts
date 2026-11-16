@@ -46,7 +46,7 @@ describe('content', () => {
       for (const c of t.learn) {
         if (c.picture) expect(hasPicture(c.picture), `${t.id} ${c.title}`).toBe(true);
         for (const l of c.labels ?? []) expect(partsOf(c.picture!)[l], `${t.id} ${c.title} ${l}`).toBeDefined();
-        expect(c.picture, `${t.id} ${c.title} needs a picture`).toBeDefined();
+        expect(c.picture ?? c.photo, `${t.id} ${c.title} needs a picture`).toBeDefined();
       }
     }
     for (const i of ALL_ITEMS) if (i.type === 'label') {
@@ -54,6 +54,14 @@ describe('content', () => {
       for (const k of i.spots) expect(partsOf(i.picture)[k], `${i.id} ${k}`).toBeDefined();
       expect(new Set(i.spots).size, i.id).toBe(i.spots.length);
     }
+  });
+
+  it('every illustration used exists in public/img', () => {
+    const files = Object.keys(import.meta.glob('/public/img/*.webp')).map((f) => f.split('/').pop()!.replace('.webp', ''));
+    const used = new Set<string>();
+    for (const t of TOPICS) for (const c of t.learn) if (c.photo) used.add(c.photo);
+    for (const i of ALL_ITEMS) if (i.photo) used.add(i.photo);
+    for (const u of used) expect(files, u).toContain(u);
   });
 
   it('word bank: each sentence uses its word, and the meaning does not give it away', () => {

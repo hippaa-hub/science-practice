@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it } from 'vitest';
 import App from '../App';
 import { DAY } from '../engine/boxes';
-import { memoryStore } from '../storage/db';
+import { emptySaved, memoryStore } from '../storage/db';
 
 const DAY1 = new Date('2026-11-18T17:00:00').getTime();
 
@@ -117,7 +117,7 @@ describe('Phase 2 screens', () => {
   }, 30000);
 
   it('spelling: a misspelt word from a mix comes first and leaves the list when spelled right', async () => {
-    const store = memoryStore({ version: 1, progress: {}, days: [], sessions: [], spelling: ['mitochondria'] });
+    const store = memoryStore({ ...emptySaved(), spelling: ['mitochondria'] });
     const user = userEvent.setup();
     render(<App store={store} now={() => DAY1} />);
     await user.click(await screen.findByRole('button', { name: /Words/ }));
@@ -140,5 +140,24 @@ describe('Phase 2 screens', () => {
     expect(screen.getByText('Spelling done!')).toBeInTheDocument();
     expect(store.current!.spelling).not.toContain('mitochondria');
     expect(store.current!.progress['word:mitochondria'].box).toBe(1);
+  }, 30000);
+});
+
+describe('motivation on screen', () => {
+  it('a finished mix shows XP, Lola, the first-mix badge, and Home shows level and things I can do', async () => {
+    const store = memoryStore();
+    const user = userEvent.setup();
+    render(<App store={store} now={() => DAY1} />);
+    expect(await screen.findByText(/things you can do/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Level 1/)).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: "Start today's mix" }));
+    for (let n = 0; n < 40 && !screen.queryByText('Mix done!'); n++) await answerOne(user);
+    expect(screen.getByText(/\+\d+ XP/)).toBeInTheDocument();
+    expect(screen.getByText('First mix')).toBeInTheDocument();
+    expect(store.current!.log.length).toBeGreaterThanOrEqual(10);
+    await user.click(screen.getByRole('button', { name: 'Back home' }));
+    await user.click(screen.getByRole('button', { name: /things you can do/ }));
+    expect(screen.getByRole('heading', { name: 'My progress' })).toBeInTheDocument();
+    expect(screen.getByText('I can explain Type 1 diabetes')).toBeInTheDocument();
   }, 30000);
 });

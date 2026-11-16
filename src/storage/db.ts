@@ -1,10 +1,13 @@
 import { del, get, set } from 'idb-keyval';
 import type { ProgressMap } from '../engine/boxes';
+import type { AnswerRecord, MasteryLog, RunKind } from '../engine/motivation';
 
 export interface SessionRecord {
   date: string;
   items: number;
   rightFirstTime: number;
+  /** Older records have none: they were all Daily Mixes. */
+  kind?: RunKind;
 }
 
 export interface Saved {
@@ -15,6 +18,11 @@ export interface Saved {
   sessions: SessionRecord[];
   /** Science words she spelled with a slip: for Word Bank spelling practice (Phase 2). */
   spelling: string[];
+  /** Every answer, for XP and badges (both only ever go up). */
+  log: AnswerRecord[];
+  /** "Things I can do" count per day, for the week-by-week chart. */
+  masteryLog: MasteryLog;
+  muted: boolean;
 }
 
 export interface Store {
@@ -26,7 +34,7 @@ export interface Store {
 const KEY = 'adele-science-v1';
 
 export function emptySaved(): Saved {
-  return { version: 1, progress: {}, days: [], sessions: [], spelling: [] };
+  return { version: 1, progress: {}, days: [], sessions: [], spelling: [], log: [], masteryLog: {}, muted: false };
 }
 
 /** Progress lives in this device's IndexedDB only. Nothing leaves the phone. */

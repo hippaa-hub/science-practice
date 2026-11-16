@@ -262,4 +262,12 @@ export const topic: Topic = {
     { word: 'respiration', meaning: 'The reaction in cells that releases energy from glucose', sentence: 'Respiration happens in the mitochondria.' },
     { word: 'insulin', meaning: 'A substance made by pancreatic beta-cells', sentence: 'People with Type 1 diabetes need insulin injections.' },
   ],
+  can: [
+    { text: "I can explain why a cell is a system", items: ['C3-system', 'C3-match-main', 'C3-permeable'] },
+    { text: "I can name the organelles and their jobs", items: ['C3-word-nucleus', 'C3-word-ribosomes', 'C3-word-cytoplasm', 'C3-nucleolus', 'C3-label-animal'] },
+    { text: "I can write the respiration equation", items: ['C3-equation', 'C3-word-energy', 'C3-sort-respiration', 'C3-needs'] },
+    { text: "I can explain what mitochondria do", items: ['C3-word-mito', 'C3-cristae', 'C3-mito-describe', 'C3-liver'] },
+    { text: "I can describe the parts only plant cells have", items: ['C3-match-plant', 'C3-sort-plant-only', 'C3-word-cellulose', 'C3-word-chlorophyll', 'C3-firm-why', 'C3-label-plant'] },
+    { text: "I can explain Type 1 diabetes", items: ['C3-beta', 'C3-insulin-from', 'C3-type1', 'C3-diabetes-why'] },
+  ],
 };

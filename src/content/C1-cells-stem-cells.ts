@@ -189,4 +189,12 @@ export const topic: Topic = {
     { word: 'ethics', meaning: 'Thinking about what is right and wrong', sentence: 'Stem cell research raises questions of ethics.' },
     { word: 'form', meaning: 'The shape of something', sentence: 'In a cell, form meets function.' },
   ],
+  can: [
+    { text: "I can say what all living things are made of", items: ['C1-made-of', 'C1-word-cells', 'C1-sort-living'] },
+    { text: "I can explain \"form meets function\"", items: ['C1-form-function', 'C1-word-function', 'C1-form-explain'] },
+    { text: "I can explain what a stem cell is", items: ['C1-what-stem', 'C1-word-unspecialised', 'C1-sort-stem'] },
+    { text: "I can name the three types of stem cell", items: ['C1-match-types', 'C1-word-induced', 'C1-not-stem', 'C1-three-types'] },
+    { text: "I can describe how cells are used in medicine", items: ['C1-match-medicine', 'C1-insulin-bacteria', 'C1-word-insulin', 'C1-repair'] },
+    { text: "I can give both sides of the stem cell debate", items: ['C1-promise', 'C1-rules', 'C1-for-against'] },
+  ],
 };

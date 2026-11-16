@@ -257,4 +257,12 @@ export const topic: Topic = {
     { word: 'compound microscope', meaning: 'An instrument with two lenses: an eyepiece and an objective', sentence: 'Janssen made the first compound microscope in 1590.' },
     { word: 'chloroplast', meaning: 'The green part of a plant cell', sentence: 'The plant cells had green chloroplasts.' },
   ],
+  can: [
+    { text: "I can tell the story of the first microscopes", items: ['C2-janssen', 'C2-timeline', 'C2-who-did-what', 'C2-hooke-mag'] },
+    { text: "I can explain how cells got their name", items: ['C2-hooke-cork', 'C2-cellae'] },
+    { text: "I can describe what Leeuwenhoek discovered", items: ['C2-leeuwenhoek', 'C2-animalcules', 'C2-compare-mag', 'C2-why-leeuwenhoek'] },
+    { text: "I can name the parts of a microscope", items: ['C2-parts', 'C2-parts-2', 'C2-word-eyepiece', 'C2-word-nosepiece', 'C2-word-diaphragm', 'C2-label-top', 'C2-label-bottom'] },
+    { text: "I can work out total magnification", items: ['C2-total-mag', 'C2-which-objective', 'C2-biggest-view', 'C2-word-objective', 'C2-how-total'] },
+    { text: "I can tell plant and animal cells apart under a microscope", items: ['C2-plant-animal-sort', 'C2-stain', 'C2-compare-cells'] },
+  ],
 };

@@ -298,3 +298,7 @@ span.block { display: block; }
 .btn.mic.on { background: var(--purple); color: #fff; box-shadow: 0 4px 0 var(--purple-dark); animation: pulse 1.2s ease-in-out infinite; }
 @keyframes pulse { 50% { filter: brightness(1.12); } }
 .mic-tip { margin-top: -4px; }
+.new-can { background: #fff8e1; border-color: var(--yellow); }
+.home-top { display: flex; align-items: center; gap: 10px; padding-top: 8px; }
+.summary-hero .mascot { margin: 0 auto 6px; display: block; }
+.cando-strip { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; background: #fff8e1; border: 2px solid var(--yellow); border-bottom-width: 4px; border-radius: var(--radius); padding: 10px 14px; }

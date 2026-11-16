@@ -101,6 +101,12 @@ export interface LabelItem extends Base {
 export type Item = ChoiceItem | MatchItem | SortItem | NumberItem | WordItem | ShortItem | LabelItem;
 export type ItemType = Item['type'];
 
+/** Something she can say she can do once most of its questions are strong. */
+export interface CanStatement {
+  text: string;
+  items: string[];
+}
+
 export interface Topic {
   id: TopicId;
   unit: string;
@@ -108,6 +114,8 @@ export interface Topic {
   learn: LearnCard[];
   items: Item[];
   words: Word[];
+  /** "I can…" statements, each backed by the questions that prove it. */
+  can: CanStatement[];
 }
 
 /** Items she has to type into (the mix needs at least 3 of these). */

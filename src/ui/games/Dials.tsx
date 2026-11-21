@@ -74,9 +74,9 @@ export function Dials({ onAnswer, onDone, onBack, seed = Date.now() }: GameProps
       </div>
 
       <div className="scope-view" aria-label={`Specimen at ${total} times`}>
-        <svg viewBox="0 0 200 120" width="100%" style={{ filter: `blur(${blur}px)` }}>
+        <svg viewBox="0 0 200 120" width="100%">
           <rect width="200" height="120" fill="#eef9ff" />
-          <g transform={`translate(100 60) scale(${Math.max(0.25, Math.min(3, target / 160))}) translate(-100 -60)`}>
+          <g style={{ filter: `blur(${blur}px)` }} transform={`translate(100 60) scale(${Math.max(0.25, Math.min(3, target / 160))}) translate(-100 -60)`}>
             {[[70, 50], [120, 44], [95, 80], [140, 78]].map(([x, y]) => (
               <g key={`${x}${y}`}><ellipse cx={x} cy={y} rx="18" ry="14" fill="#ffe0ee" stroke="#e66a9a" strokeWidth="2" /><circle cx={x - 2} cy={y} r="5" fill="#5a6fd8" /></g>
             ))}

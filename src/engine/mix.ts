@@ -103,7 +103,17 @@ export function buildMix(input: MixInput): Item[] {
     }
   }
 
-  return spreadTopics(chosen, rand);
+  return easyFirst(chosen, rand);
+}
+
+/**
+ * Easy first (Jenia, 22 Nov): a mix starts with tap-and-drag questions, then typed words and numbers,
+ * and keeps the written "explain" answers for the end, so the start of each day feels easy.
+ * Inside each group the topics are spread out, so no topic comes three times in a row.
+ */
+export function easyFirst(items: Item[], rand: () => number): Item[] {
+  const rank = (i: Item) => (i.type === 'short' ? 2 : i.type === 'word' || i.type === 'number' ? 1 : 0);
+  return [0, 1, 2].flatMap((r) => spreadTopics(items.filter((i) => rank(i) === r), rand));
 }
 
 export function isTyped(i: Item): boolean {

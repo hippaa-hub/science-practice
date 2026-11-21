@@ -69,8 +69,17 @@ describe('daily mix', () => {
       expect(mix.filter((i) => i.topic === 'B').length).toBeGreaterThanOrEqual(2);
       expect(mix.filter(isTyped).length).toBeGreaterThanOrEqual(3);
       expect(mix.some(isExplainWhy)).toBe(true);
-      for (let i = 2; i < mix.length; i++) {
-        expect(mix[i].topic === mix[i - 1].topic && mix[i].topic === mix[i - 2].topic).toBe(false);
+      // Easy first: tap/drag questions, then typed, then written; no 3 of a topic in a row inside a group.
+      const rank = (t: string) => (t === 'short' ? 2 : t === 'word' || t === 'number' ? 1 : 0);
+      for (let i = 1; i < mix.length; i++) expect(rank(mix[i].type)).toBeGreaterThanOrEqual(rank(mix[i - 1].type));
+      for (const r of [0, 1, 2]) {
+        const group = mix.filter((i) => rank(i.type) === r);
+        for (let i = 2; i < group.length; i++) {
+          const run = group[i].topic === group[i - 1].topic && group[i].topic === group[i - 2].topic;
+          // Three in a row is only allowed when that topic fills more than half the group, so it cannot be avoided.
+          const share = group.filter((g) => g.topic === group[i].topic).length;
+          if (run) expect(share * 2).toBeGreaterThan(group.length);
+        }
       }
     }
   });

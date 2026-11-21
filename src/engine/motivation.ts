@@ -11,7 +11,7 @@ import { DAY, type ItemProgress, type ProgressMap } from './boxes';
 
 // ---------- the record ----------
 
-export type AnswerKind = 'first' | 'retry' | 'dontknow' | 'spell' | 'learn';
+export type AnswerKind = 'first' | 'retry' | 'dontknow' | 'spell' | 'learn' | 'game';
 
 export interface AnswerRecord {
   id: string;
@@ -20,7 +20,7 @@ export interface AnswerRecord {
   correct: boolean;
 }
 
-export type RunKind = 'daily' | 'topic' | 'check' | 'spell';
+export type RunKind = 'daily' | 'topic' | 'check' | 'spell' | 'game';
 
 // ---------- "Things I can do" ----------
 
@@ -105,6 +105,7 @@ export const XP = {
 
 export function xpFor(r: AnswerRecord): number {
   switch (r.kind) {
+    case 'game': return r.correct ? XP.correct : XP.effort;
     case 'learn': return XP.learnDone;
     case 'spell': return r.correct ? XP.spellPerfect : XP.effort;
     case 'dontknow': return XP.effort;
@@ -154,6 +155,8 @@ export const BADGES: Badge[] = [
   { id: 'days-7', title: '7 practice days', how: 'Practised on 7 different days', icon: '🗓️' },
   { id: 'days-30', title: '30 practice days', how: 'Practised on 30 different days', icon: '🏆' },
   { id: 'topic-secure', title: 'Topic secure', how: 'Made a whole topic secure', icon: '🔬' },
+  { id: 'games-3', title: 'Game on', how: 'Finished 3 games', icon: '🎮' },
+  { id: 'cell-builder', title: 'Cell builder', how: 'Built both cells with every part right first time', icon: '🧫' },
 ];
 
 export interface BadgeInput {
@@ -190,6 +193,10 @@ export function earnedBadges(b: BadgeInput): Set<string> {
   if (b.days.length >= 7) got.add('days-7');
   if (b.days.length >= 30) got.add('days-30');
   if (b.secureTopics >= 1) got.add('topic-secure');
+  if (b.sessions.filter((s) => s.kind === 'game').length >= 3) got.add('games-3');
+  // Cell builder: one game in which every cell part was right first time (9 parts, no wrong answer in that stretch).
+  const cellLog = log.filter((r) => r.kind === 'game' && r.id.startsWith('game:cell:'));
+  for (let k = 0; k + 9 <= cellLog.length; k += 9) if (cellLog.slice(k, k + 9).every((r) => r.correct)) got.add('cell-builder');
   return got;
 }
 

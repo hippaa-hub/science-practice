@@ -307,3 +307,65 @@ span.block { display: block; }
 .mascot.avatar img, .mascot.avatar video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; display: block; transform: scale(1.5); transform-origin: 50% 12%; }
 .mascot.avatar video { cursor: pointer; }
 .mascot.avatar.wave img, .mascot.avatar.wave video { animation: none; }
+
+/* ---- Games ---- */
+.game-tile { display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; padding: 14px 16px; border-radius: var(--radius); border: 2px solid var(--line); border-bottom-width: 4px; background: #fff; }
+.game-tile:active { transform: translateY(2px); border-bottom-width: 2px; }
+.game-icon { font-size: 2rem; width: 48px; text-align: center; flex: none; }
+.cells { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.cell-fig { margin: 0; background: #fff; border: 2px solid var(--line); border-radius: var(--radius); padding: 8px; text-align: center; font-weight: 800; font-size: 0.9rem; }
+.cell-fig svg { display: block; width: 100%; height: auto; }
+.chip-card { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 14px; border-radius: var(--radius); border: 2px solid var(--purple); background: var(--purple-soft); font-size: 1.15rem; }
+.chip-icon { width: 44px; height: 44px; flex: none; }
+.chip-icon svg { width: 100%; height: 100%; }
+.btn.where { padding: 0 8px; font-size: 0.85rem; min-height: 56px; }
+.shake { animation: shake 0.45s; }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
+.choice.right { border-color: var(--green); background: var(--green-soft); }
+.pulse-text { animation: pulse 1s ease-in-out infinite; color: var(--blue-dark); }
+.target { font-size: 2.6rem; font-weight: 900; color: var(--blue-dark); line-height: 1; }
+.scope-view { position: relative; background: #111; border-radius: 50%; width: min(240px, 70vw); aspect-ratio: 1; margin: 0 auto; overflow: hidden; border: 6px solid #333; display: grid; place-items: center; }
+.scope-view svg { width: 100%; height: 100%; border-radius: 50%; transition: filter 0.3s; }
+.scope-total { position: absolute; bottom: 10px; left: 0; right: 0; text-align: center; color: #fff; font-weight: 700; font-size: 0.9rem; text-shadow: 0 1px 2px #000; }
+.dial-row { display: flex; align-items: center; gap: 14px; }
+.dial { width: 56px; height: 56px; border-radius: 50%; background: #444; border: 4px solid #777; position: relative; flex: none; box-shadow: inset 0 2px 6px rgba(0,0,0,0.5); }
+.dial i { position: absolute; left: 50%; top: 6px; width: 4px; height: 22px; margin-left: -2px; background: #ffc800; border-radius: 2px; transform-origin: 50% 20px; transition: transform 0.25s; }
+
+/* Predict it! scenes: still until .playing */
+.scene { display: block; width: 100%; height: auto; background: #fff; border: 2px solid var(--line); border-radius: var(--radius); }
+.scene .melt-fast, .scene .melt-slow, .scene .grow4, .scene .vac-shrink, .scene .move-left, .scene .move-right, .scene .droop, .scene .cells-fade, .scene .insulin-stop, .scene .sankey-useful, .scene .sankey-waste, .scene .air-rise, .scene .boxes-appear { animation-duration: 2.4s; animation-fill-mode: forwards; animation-timing-function: ease-in-out; animation-play-state: paused; }
+.scene.playing .melt-fast, .scene.playing .melt-slow, .scene.playing .grow4, .scene.playing .vac-shrink, .scene.playing .move-left, .scene.playing .move-right, .scene.playing .droop, .scene.playing .cells-fade, .scene.playing .insulin-stop, .scene.playing .sankey-useful, .scene.playing .sankey-waste, .scene.playing .air-rise, .scene.playing .boxes-appear { animation-play-state: running; }
+.scene .puddle, .scene .fade-in-late { opacity: 0; }
+.scene.playing .puddle { animation: appear 2.4s forwards; }
+.scene.playing .fade-in-late { animation: appear 2.6s forwards; }
+.scene .fade-swap { opacity: 1; }
+.scene.playing .fade-swap { animation: vanish 2.4s forwards; }
+.scene .melt-fast { animation-name: melt-fast; }
+.scene .melt-slow { animation-name: melt-slow; }
+.scene .grow4 { animation-name: grow4; }
+.scene .vac-shrink { animation-name: shrink-half; }
+.scene .move-left { animation-name: move-left; }
+.scene .move-right { animation-name: move-right; }
+.scene .droop { animation-name: droop; }
+.scene .cells-fade { animation-name: vanish; }
+.scene .insulin-stop { animation-name: vanish; animation-duration: 1.2s; }
+.scene .sankey-useful { animation-name: grow-x; }
+.scene .sankey-waste { animation-name: grow-x; animation-delay: 0.8s; }
+.scene .air-rise { animation-name: air-rise; animation-iteration-count: infinite; animation-duration: 1.8s; }
+.scene .boxes-appear { animation-name: appear; }
+.scene .sankey-useful, .scene .sankey-waste { transform: scaleX(0); }
+.scene .boxes-appear { opacity: 0; }
+@keyframes melt-fast { to { transform: scaleY(0.08) scaleX(1.3); opacity: 0.4; } }
+@keyframes melt-slow { to { transform: scaleY(0.75); } }
+@keyframes grow4 { to { transform: scale(4); } }
+@keyframes shrink-half { to { transform: scale(0.45); } }
+@keyframes move-left { to { transform: translateX(-70px); } }
+@keyframes move-right { to { transform: translateX(70px); } }
+@keyframes droop { to { transform: rotate(55deg); } }
+@keyframes vanish { to { opacity: 0; } }
+@keyframes appear { from { opacity: 0; } 60% { opacity: 0; } to { opacity: 1; } }
+@keyframes grow-x { to { transform: scaleX(1); } }
+@keyframes air-rise { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-40px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .scene .melt-fast, .scene .melt-slow, .scene .grow4, .scene .vac-shrink, .scene .move-left, .scene .move-right, .scene .droop, .scene .cells-fade, .scene .insulin-stop, .scene .sankey-useful, .scene .sankey-waste, .scene .air-rise, .scene .boxes-appear, .scene .puddle, .scene .fade-in-late, .scene .fade-swap { animation-duration: 0.01s !important; }
+}

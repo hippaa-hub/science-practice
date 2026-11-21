@@ -8,6 +8,8 @@ export interface SessionRecord {
   rightFirstTime: number;
   /** Older records have none: they were all Daily Mixes. */
   kind?: RunKind;
+  /** Which game, when kind is 'game'. */
+  game?: string;
 }
 
 export interface Saved {

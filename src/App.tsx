@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ALL_ITEMS, TOPICS, currentTopic } from './content';
 import type { Item, Topic } from './content/types';
 import { record } from './engine/boxes';
@@ -20,8 +20,12 @@ import { setMuted } from './ui/sounds';
 import { StatusChip, TopicPage, Topics } from './ui/Topics';
 import { ALL_WORDS, Flashcards, SpellCard, UseIt, WordBank, type SpellResult } from './ui/Words';
 import { XpBar } from './ui/XpBar';
+import { BuildCell } from './ui/games/BuildCell';
+import { Dials } from './ui/games/Dials';
+import { GamesTab, type GameId } from './ui/games/Games';
+import { Predict } from './ui/games/Predict';
 
-type Tab = 'today' | 'topics' | 'words';
+type Tab = 'today' | 'topics' | 'games' | 'words';
 
 /** What things looked like when a session started, to show what is new at the end. */
 interface Before { xp: number; badges: string[]; cans: string[]; logLength: number }
@@ -35,15 +39,18 @@ type Screen =
   | { name: 'finish'; kind: RunKind; firstTry: Record<string, boolean>; topic?: Topic; info: FinishInfo }
   | { name: 'spell'; words: BankWord[]; session: SessionState; before: Before }
   | { name: 'cards'; topic: string }
-  | { name: 'use' };
+  | { name: 'use' }
+  | { name: 'game'; game: GameId; seed: number };
 
-const FINISH_TITLE: Record<RunKind, string> = { daily: 'Mix done!', topic: 'Practice done!', check: 'Check done!', spell: 'Spelling done!' };
+const FINISH_TITLE: Record<RunKind, string> = { daily: 'Mix done!', topic: 'Practice done!', check: 'Check done!', spell: 'Spelling done!', game: 'Game done!' };
 const LABEL_IDS = ALL_ITEMS.filter((i) => i.type === 'label').map((i) => i.id);
 const PROMPT = new Map(ALL_ITEMS.map((i) => [i.id, i.prompt]));
 
 export default function App({ store = idbStore, now = () => Date.now() }: { store?: Store; now?: () => number }) {
   const [saved, setSaved] = useState<Saved | null>(null);
   const [screen, setScreen] = useState<Screen>({ name: 'tab', tab: 'today' });
+  const savedRef = useRef<Saved>(emptySaved());
+  if (saved) savedRef.current = saved;
 
   useEffect(() => {
     if (new URLSearchParams(location.search).has('reset')) {
@@ -70,6 +77,7 @@ export default function App({ store = idbStore, now = () => Date.now() }: { stor
 
   const persist = (next: Saved) => {
     const withLog = { ...next, masteryLog: logMastery(next.masteryLog, canCount(TOPICS, next.progress, t), today) };
+    savedRef.current = withLog;
     setSaved(withLog);
     void store.save(withLog);
   };
@@ -116,6 +124,7 @@ export default function App({ store = idbStore, now = () => Date.now() }: { stor
     <nav className="nav" aria-label="Main">
       <button className={tab === 'today' ? 'on' : ''} onClick={() => go({ name: 'tab', tab: 'today' })}><span className="ico" aria-hidden="true">☀️</span>Today</button>
       <button className={tab === 'topics' ? 'on' : ''} onClick={() => go({ name: 'tab', tab: 'topics' })}><span className="ico" aria-hidden="true">🗺️</span>Topics</button>
+      <button className={tab === 'games' ? 'on' : ''} onClick={() => go({ name: 'tab', tab: 'games' })}><span className="ico" aria-hidden="true">🎮</span>Games</button>
       <button className={tab === 'words' ? 'on' : ''} onClick={() => go({ name: 'tab', tab: 'words' })}><span className="ico" aria-hidden="true">🔤</span>Words</button>
     </nav>
   );
@@ -132,6 +141,9 @@ export default function App({ store = idbStore, now = () => Date.now() }: { stor
               onMute={() => { setMuted(!saved.muted); persist({ ...saved, muted: !saved.muted }); }} />
           )}
           {screen.tab === 'topics' && <Topics progress={saved.progress} today={today} onOpen={(tp) => go({ name: 'topic', topic: tp })} />}
+          {screen.tab === 'games' && (
+            <GamesTab played={gamesPlayed(saved)} onPlay={(g) => go({ name: 'game', game: g, seed: seed() })} />
+          )}
           {screen.tab === 'words' && (
             <WordBank progress={saved.progress} spelling={saved.spelling} onSpell={startSpelling}
               onCards={(tp) => go({ name: 'cards', topic: tp })} onUse={() => go({ name: 'use' })} />
@@ -239,6 +251,21 @@ export default function App({ store = idbStore, now = () => Date.now() }: { stor
     case 'use':
       body = <UseIt onClose={() => go({ name: 'tab', tab: 'words' })} />;
       break;
+
+    case 'game': {
+      const props = {
+        seed: screen.seed,
+        onBack: () => go({ name: 'tab', tab: 'games' }),
+        // Every first try in a game is logged, so it earns XP like a question.
+        onAnswer: (id: string, correct: boolean) => persist(logged(savedRef.current, { id, kind: 'game', correct })),
+        onDone: (right: number, total: number) => persist(markDay({
+          ...savedRef.current,
+          sessions: [...savedRef.current.sessions, { date: today, items: total, rightFirstTime: right, kind: 'game' as const, game: screen.game }],
+        })),
+      };
+      body = screen.game === 'cell' ? <BuildCell {...props} /> : screen.game === 'predict' ? <Predict {...props} /> : <Dials {...props} />;
+      break;
+    }
   }
 
   return <div className="app">{body}</div>;
@@ -297,4 +324,11 @@ function Home({ saved, today, now, onStart, onOpen, onProgress, onMute }: {
       )}
     </div>
   );
+}
+
+/** How many times each game has been finished. */
+function gamesPlayed(s: Saved): Record<GameId, number> {
+  const out: Record<GameId, number> = { cell: 0, predict: 0, dials: 0 };
+  for (const x of s.sessions) if (x.kind === 'game' && x.game) out[x.game as GameId] += 1;
+  return out;
 }

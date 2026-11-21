@@ -49,6 +49,8 @@ export interface SortItem extends Base {
   bins: string[];
   /** card text -> bin it belongs in */
   cards: { text: string; bin: string }[];
+  /** A picture (public/img name) for each bin's drop zone, so sorting looks like the real thing. */
+  zones?: Record<string, string>;
 }
 
 export interface NumberQuestion {

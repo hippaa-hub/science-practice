@@ -98,5 +98,33 @@
  {
   "id": "c3-insulin-pen",
   "prompt": "A cheerful teenager calmly using an insulin pen on their arm at a kitchen table, with a healthy breakfast nearby. Positive, everyday, not scary."
+ },
+ {
+  "id": "z-cell-inside",
+  "prompt": "We are INSIDE an animal cell: soft jelly-like cytoplasm all around, a large round purple nucleus and a few orange mitochondria in soft focus near the edges, and a calm open space in the middle for things to arrive. Square picture."
+ },
+ {
+  "id": "z-cell-outside",
+  "prompt": "OUTSIDE a cell: the cell's curved membrane runs along the LEFT edge of the picture, and to the right there is open watery fluid with a gentle stream of tiny bubbles flowing away to the right, as if waste is being carried off. Square picture."
+ },
+ {
+  "id": "z-mito-in",
+  "prompt": "A large orange mitochondrion in 3D with an open doorway on its LEFT side, and a path of small glowing particles flowing INTO the doorway from the left. Square picture."
+ },
+ {
+  "id": "z-mito-out",
+  "prompt": "A large orange mitochondrion in 3D with an open doorway on its RIGHT side, and small particles streaming OUT of it to the right, with a soft burst of bright energy sparkles. Square picture."
+ },
+ {
+  "id": "z-both-cells",
+  "prompt": "An animal cell and a plant cell side by side, the same size, drawn as friendly 3D cutaways: the round animal cell on the left, the box-shaped green-walled plant cell on the right, both with a nucleus and mitochondria. Square picture."
+ },
+ {
+  "id": "z-made-of-cells",
+  "prompt": "A big magnifying glass held over a green leaf; inside the lens the leaf is made of many tiny box-shaped cells, like bricks. Square picture."
+ },
+ {
+  "id": "z-not-cells",
+  "prompt": "A grey rock and a clear drinking glass on a plain table, with a big magnifying glass over them showing only smooth plain material inside, no cells at all. Square picture."
  }
 ]

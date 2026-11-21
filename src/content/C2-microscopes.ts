@@ -177,6 +177,7 @@ export const topic: Topic = {
     },
     {
       id: 'C2-plant-animal-sort', topic: 'C2', type: 'sort', photo: 'c2-plant-animal-view',
+      zones: { 'Plant cell': 'c3-plant-cell', 'Animal cell': 'c3-animal-cell' },
       prompt: 'Under the microscope: is this a plant cell or an animal cell?',
       bins: ['Plant cell', 'Animal cell'],
       cards: [

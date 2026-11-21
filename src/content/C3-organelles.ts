@@ -46,6 +46,7 @@ export const topic: Topic = {
     },
     {
       id: 'C3-sort-plant-only', topic: 'C3', type: 'sort', photo: 'c3-plant-cell',
+      zones: { 'Both': 'z-both-cells', 'Plant cells only': 'c3-plant-cell' },
       prompt: 'Is it found in both plant and animal cells, or only in plant cells?',
       bins: ['Both', 'Plant cells only'],
       cards: [
@@ -61,6 +62,7 @@ export const topic: Topic = {
     },
     {
       id: 'C3-sort-respiration', topic: 'C3', type: 'sort', photo: 'c3-respiration',
+      zones: { 'Goes in': 'z-mito-in', 'Comes out': 'z-mito-out' },
       prompt: 'Respiration: does it go in, or come out?',
       bins: ['Goes in', 'Comes out'],
       cards: [
@@ -158,6 +160,7 @@ export const topic: Topic = {
     },
     {
       id: 'C3-needs', topic: 'C3', type: 'sort', photo: 'c3-respiration',
+      zones: { 'Comes in': 'z-cell-inside', 'Goes out as waste': 'z-cell-outside' },
       prompt: 'What a cell needs: does it come in, or go out as waste?',
       bins: ['Comes in', 'Goes out as waste'],
       cards: [

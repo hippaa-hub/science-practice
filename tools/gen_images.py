@@ -32,8 +32,9 @@ def main():
     jobs = [s for s in spec if (not only or s["id"] in only) and (a.overwrite or not (out / f"{s['id']}.png").exists())]
     sys.stderr.write(f"{len(jobs)} image(s), {a.quality}, ~${0.006 * len(jobs):.3f}\n")
     for s in jobs:
+        square = s["id"].startswith("z-")
         body = {"prompt": STYLE + s["prompt"], "quality": a.quality,
-                "image_size": {"width": 1536, "height": 1024}}
+                "image_size": {"width": 1024, "height": 1024} if square else {"width": 1536, "height": 1024}}
         req = urllib.request.Request(ENDPOINT, data=json.dumps(body).encode(), method="POST")
         req.add_header("Authorization", "Key " + key)
         req.add_header("Content-Type", "application/json")

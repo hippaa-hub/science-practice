@@ -27,6 +27,7 @@ export const topic: Topic = {
     },
     {
       id: 'C1-sort-living', topic: 'C1', type: 'sort', photo: 'c1-living-things',
+      zones: { 'Made of cells': 'z-made-of-cells', 'Not made of cells': 'z-not-cells' },
       prompt: 'Is it made of cells?',
       bins: ['Made of cells', 'Not made of cells'],
       cards: [
@@ -67,6 +68,7 @@ export const topic: Topic = {
     },
     {
       id: 'C1-sort-stem', topic: 'C1', type: 'sort', photo: 'c1-stem-cell',
+      zones: { 'Stem cell': 'c1-stem-cell', 'Specialised cell': 'c1-cell-shapes' },
       prompt: 'Is it a type of stem cell, or a specialised cell?',
       bins: ['Stem cell', 'Specialised cell'],
       cards: [

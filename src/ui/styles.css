@@ -369,3 +369,22 @@ span.block { display: block; }
 @media (prefers-reduced-motion: reduce) {
   .scene .melt-fast, .scene .melt-slow, .scene .grow4, .scene .vac-shrink, .scene .move-left, .scene .move-right, .scene .droop, .scene .cells-fade, .scene .insulin-stop, .scene .sankey-useful, .scene .sankey-waste, .scene .air-rise, .scene .boxes-appear, .scene .puddle, .scene .fade-in-late, .scene .fade-swap { animation-duration: 0.01s !important; }
 }
+
+/* ---- Drag-and-drop sorting ---- */
+.zones { display: grid; gap: 10px; }
+.zone { position: relative; min-height: 170px; border-radius: var(--radius); border: 3px dashed var(--line); background: #fff center / cover no-repeat; padding: 8px; display: flex; flex-direction: column; justify-content: flex-end; transition: border-color 0.15s, transform 0.15s; cursor: pointer; }
+.zone.ready { border-color: var(--blue); border-style: solid; }
+.zone.over { border-color: var(--green); border-style: solid; transform: scale(1.03); background-color: var(--green-soft); }
+.zone-label { position: absolute; top: 8px; left: 8px; right: 8px; text-align: center; font-weight: 900; font-size: 0.9rem; color: var(--ink); background: rgba(255,255,255,0.88); border-radius: 999px; padding: 4px 8px; }
+.zone-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.tag { border: 2px solid var(--purple); background: #fff; color: var(--purple-dark); border-radius: 999px; padding: 4px 10px; font-weight: 800; font-size: 0.8rem; cursor: pointer; }
+.tag.wrong { border-color: var(--orange); color: var(--orange-dark); background: var(--orange-soft); }
+.tray { display: flex; flex-wrap: wrap; gap: 8px; min-height: 52px; padding: 8px; border-radius: var(--radius); background: var(--bg); border: 2px solid var(--line); }
+.drag-chip { touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; }
+.drag-chip.selected { background: var(--purple); border-color: var(--purple); color: #fff; }
+.drag-chip.lifting { opacity: 0.35; }
+.drag-ghost { position: fixed; z-index: 50; pointer-events: none; transform: scale(1.08); box-shadow: 0 8px 20px rgba(0,0,0,0.2); background: var(--purple); border-color: var(--purple); color: #fff; }
+.match-grid { position: relative; }
+.match-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.match-lines .draw { stroke-dasharray: 600; stroke-dashoffset: 600; animation: draw-line 0.4s ease-out forwards; }
+@keyframes draw-line { to { stroke-dashoffset: 0; } }

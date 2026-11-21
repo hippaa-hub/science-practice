@@ -1,10 +1,11 @@
-import { useMemo, useState } from 'react';
-import type { ChoiceItem, Item, LabelItem, MatchItem, NumberItem, ShortItem, SortItem, WordItem } from '../content/types';
+import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import type { ChoiceItem, Item, LabelItem, MatchItem, NumberItem, ShortItem, WordItem } from '../content/types';
 import { Picture, partsOf } from '../pictures';
-import { checkMatch, checkNumber, checkSort, checkWord, detectIdeas, shortCorrect } from '../engine/check';
+import { checkMatch, checkNumber, checkWord, detectIdeas, shortCorrect } from '../engine/check';
 import { seeded, shuffle } from '../engine/rng';
 import { numberQuestion } from '../engine/session';
 import { Mic } from './Mic';
+import { DragSort } from './DragSort';
 
 /** What happened, for the feedback panel and the review boxes. */
 export interface Outcome {
@@ -50,7 +51,7 @@ export function ItemView({ item, seed, onDone }: Props) {
   switch (item.type) {
     case 'choice': return <Choice item={item} seed={seed} onDone={onDone} />;
     case 'match': return <Match item={item} seed={seed} onDone={onDone} />;
-    case 'sort': return <Sort item={item} seed={seed} onDone={onDone} />;
+    case 'sort': return <DragSort item={item} seed={seed} onDone={onDone} />;
     case 'number': return <NumberQ item={item} seed={seed} onDone={onDone} />;
     case 'word': return <WordQ item={item} onDone={onDone} />;
     case 'short': return <Short item={item} onDone={onDone} />;
@@ -96,24 +97,56 @@ function Match({ item, seed, onDone }: { item: MatchItem; seed: number; onDone: 
     setActive(lefts.find((l) => !next[l]) ?? null);
   };
   const done = lefts.every((l) => given[l]);
+  const grid = useRef<HTMLDivElement>(null);
+  const [lines, setLines] = useState<{ x1: number; y1: number; x2: number; y2: number; n: number }[]>([]);
+  // Draw a line from each matched word to its partner, measured from the buttons on screen.
+  useLayoutEffect(() => {
+    const measure = () => {
+      const box = grid.current?.getBoundingClientRect();
+      if (!box) return;
+      const out: typeof lines = [];
+      for (const l of lefts) {
+        const r = given[l];
+        if (!r) continue;
+        const a = grid.current!.querySelector<HTMLElement>(`[data-left="${CSS.escape(l)}"]`)?.getBoundingClientRect();
+        const b = grid.current!.querySelector<HTMLElement>(`[data-right="${CSS.escape(r)}"]`)?.getBoundingClientRect();
+        if (!a || !b) continue;
+        out.push({ x1: a.right - box.left, y1: a.top + a.height / 2 - box.top, x2: b.left - box.left, y2: b.top + b.height / 2 - box.top, n: numberOf(l) });
+      }
+      // Only update when something moved, or the effect would re-run forever.
+      setLines((prev) => (JSON.stringify(prev) === JSON.stringify(out) ? prev : out));
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [given, item]); // eslint-disable-line react-hooks/exhaustive-deps
+  const COLOURS = ['#ce82ff', '#1cb0f6', '#58cc02', '#ff9600', '#ffc800', '#e66a9a'];
   return (
     <div className="stack">
       <p className="qtext">{item.prompt}</p>
-      <p className="muted small">Tap a word, then tap its match.</p>
-      <div className="match-grid">
+      <p className="muted small">Tap a word, then tap its match. A line joins them.</p>
+      <div className="match-grid" ref={grid}>
+        <svg className="match-lines" aria-hidden="true">
+          {lines.map((ln) => (
+            <line key={ln.n} x1={ln.x1} y1={ln.y1} x2={ln.x2} y2={ln.y2} stroke={COLOURS[(ln.n - 1) % COLOURS.length]} strokeWidth="4" strokeLinecap="round" className="draw" />
+          ))}
+        </svg>
         <div className="stack tight">
           {lefts.map((l) => (
-            <button key={l} className={`choice pair-left${active === l ? ' selected' : ''}${given[l] ? ' paired' : ''}`} onClick={() => setActive(l)}>
-              <span className="pair-num">{numberOf(l)}</span>{l}
+            <button key={l} data-left={l} className={`choice pair-left${active === l ? ' selected' : ''}${given[l] ? ' paired' : ''}`} onClick={() => setActive(l)}
+              style={given[l] ? { borderColor: COLOURS[(numberOf(l) - 1) % COLOURS.length] } : undefined}>
+              <span className="pair-num" style={{ background: COLOURS[(numberOf(l) - 1) % COLOURS.length] }}>{numberOf(l)}</span>{l}
             </button>
           ))}
         </div>
         <div className="stack tight">
           {rights.map((r) => {
             const owner = leftFor(r);
+            const colour = owner ? COLOURS[(numberOf(owner) - 1) % COLOURS.length] : undefined;
             return (
-              <button key={r} className={`choice pair-right${owner ? ' paired' : ''}`} onClick={() => chooseRight(r)} aria-label={owner ? `${r}, matched to ${owner}` : r}>
-                {owner && <span className="pair-num">{numberOf(owner)}</span>}{r}
+              <button key={r} data-right={r} className={`choice pair-right${owner ? ' paired' : ''}`} onClick={() => chooseRight(r)} aria-label={owner ? `${r}, matched to ${owner}` : r}
+                style={colour ? { borderColor: colour } : undefined}>
+                {owner && <span className="pair-num" style={{ background: colour }}>{numberOf(owner)}</span>}{r}
               </button>
             );
           })}
@@ -122,37 +155,6 @@ function Match({ item, seed, onDone }: { item: MatchItem; seed: number; onDone: 
       <CheckButton disabled={!done} onClick={() => {
         const wrong = checkMatch(item.pairs, given);
         onDone({ correct: wrong.length === 0, reveal: item.pairs.map(([l, r]) => `${l} → ${r}`).join('\n'), note: wrong.length ? `${wrong.length} not yet matched right.` : undefined });
-      }} />
-    </div>
-  );
-}
-
-function Sort({ item, seed, onDone }: { item: SortItem; seed: number; onDone: (o: Outcome) => void }) {
-  const cards = useMemo(() => shuffle(item.cards, seeded(seed)), [item, seed]);
-  const [given, setGiven] = useState<Record<string, string>>({});
-  const done = cards.every((c) => given[c.text]);
-  return (
-    <div className="stack">
-      <p className="qtext">{item.prompt}</p>
-      <div className="stack tight">
-        {cards.map((c) => (
-          <div key={c.text} className="sort-row">
-            <span className="sort-card">{c.text}</span>
-            <div className="sort-bins">
-              {item.bins.map((b) => (
-                <button key={b} className={`bin${given[c.text] === b ? ' selected' : ''}`} onClick={() => setGiven({ ...given, [c.text]: b })} aria-pressed={given[c.text] === b}>{b}</button>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-      <CheckButton disabled={!done} onClick={() => {
-        const wrong = checkSort(item.cards, given);
-        onDone({
-          correct: wrong.length === 0,
-          reveal: item.bins.map((b) => `${b}: ${item.cards.filter((c) => c.bin === b).map((c) => c.text).join(', ')}`).join('\n'),
-          note: wrong.length ? `Not yet: ${wrong.join(', ')}` : undefined,
-        });
       }} />
     </div>
   );

@@ -61,6 +61,7 @@ describe('content', () => {
     const used = new Set<string>();
     for (const t of TOPICS) for (const c of t.learn) if (c.photo) used.add(c.photo);
     for (const i of ALL_ITEMS) if (i.photo) used.add(i.photo);
+    for (const i of ALL_ITEMS) if (i.type === 'sort' && i.zones) { for (const b of i.bins) expect(i.zones[b], `${i.id}: zone for ${b}`).toBeDefined(); for (const z of Object.values(i.zones)) used.add(z); }
     for (const u of used) expect(files, u).toContain(u);
   });
 

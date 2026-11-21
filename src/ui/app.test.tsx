@@ -26,8 +26,14 @@ async function answerOne(user: ReturnType<typeof userEvent.setup>): Promise<stri
   } else if (fs.querySelector('.match-grid')) {
     for (const b of [...fs.querySelectorAll('.pair-right')]) await user.click(b as HTMLElement);
     await user.click(q.getByRole('button', { name: 'Check' }));
-  } else if (fs.querySelector('.sort-row')) {
-    for (const row of [...fs.querySelectorAll('.sort-row')]) await user.click(row.querySelector('.bin') as HTMLElement);
+  } else if (fs.querySelector('.tray')) {
+    // Drag sort: tap a chip, then tap the first zone, until the tray is empty.
+    for (let n = 0; n < 12; n++) {
+      const chip = fs.querySelector('.drag-chip') as HTMLElement | null;
+      if (!chip) break;
+      await user.click(chip);
+      await user.click(fs.querySelector('[data-zone]') as HTMLElement);
+    }
     await user.click(q.getByRole('button', { name: 'Check' }));
   } else {
     await user.click(fs.querySelector('.choice') as HTMLElement);
